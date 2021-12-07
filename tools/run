@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Runs a specific testing workflow
+
+set -euo pipefail
+
+if [[ $# -ne 1 ]]; then
+	echo "usage: $0 workflow" 1>&2
+    echo "" 1>&2
+	echo "workflows:" 1>&2
+	echo "- desktop-dev-linux-amd64" 1>&2
+    echo "" 1>&2
+	exit 1
+fi
+workflow=$1
+
+source ./tools/lib.bash
+
+do_desktop_dev() {
+	run mkdir -p ./repo/probe-desktop/build/probe-cli/$1
+	(run cd repo/probe-cli && go build -v -ldflags "-s -w" ./cmd/ooniprobe)
+	run cp -p ./repo/probe-cli/ooniprobe \
+		./repo/probe-desktop/build/probe-cli/$1
+    (run cd repo/probe-desktop && yarn install && yarn dev)
+}
+
+case $workflow in
+"desktop-dev-linux-amd64")
+	do_desktop_dev linux_amd64
+	;;
+*)
+	echo "fatal: unknown workflow: $workflow" 1>&2
+	exit 1
+	;;
+esac
