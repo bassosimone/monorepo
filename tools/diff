@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Shows what changed for each repository
+
+set -euo pipefail
+
+if [[ $# -ne 0 ]]; then
+	echo "usage: $0" 1>&2
+	exit 1
+fi
+
+source ./tools/lib.bash
+
+do_show_diff() {
+	dirname=$(repo_to_dir $1)
+	echo ""
+	(cd $dirname && git --no-pager diff --src-prefix=$dirname/a/ \
+		--dst-prefix=$dirname/b/ --color=always)
+}
+
+for_each_repo do_show_diff

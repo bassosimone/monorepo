@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Shows the status of each repository
+
+set -euo pipefail
+
+if [[ $# -ne 0 ]]; then
+	echo "usage: $0" 1>&2
+	exit 1
+fi
+
+source ./tools/lib.bash
+
+do_show_status() {
+	dirname=$(repo_to_dir $1)
+	echo ""
+	(run cd $dirname && run git status)
+}
+
+for_each_repo do_show_status

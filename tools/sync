@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Sync each repository of interest to the latest version
+# and ensures the default branch is called main
+
+set -euo pipefail
+
+if [[ $# -ne 0 ]]; then
+	echo "usage: $0" 1>&2
+	exit 1
+fi
+
+source ./tools/lib.bash
+
+maybe_clone() {
+	dirname=$(repo_to_dir $1)
+	[[ -d $dirname ]] || {
+		run git clone -q --single-branch $1 $dirname
+		(run cd $dirname && run git branch -m main)
+	}
+}
+
+maybe_pull() {
+	dirname=$(repo_to_dir $1)
+	(run cd $dirname && run git pull -q)
+}
+
+do_sync() {
+	maybe_clone $1
+	fail_if_not_main $1
+	fail_if_dirty $1
+	maybe_pull $1
+}
+
+for_each_repo do_sync
