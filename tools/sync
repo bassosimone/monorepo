@@ -15,7 +15,7 @@ source ./tools/lib.bash
 maybe_clone() {
 	dirname=$(repo_to_dir $1)
 	[[ -d $dirname ]] || {
-		run git clone -q --single-branch $1 $dirname
+		run git clone -q $1 $dirname
 		(run cd $dirname && run git branch -m main)
 	}
 }
