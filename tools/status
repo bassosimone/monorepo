@@ -14,7 +14,7 @@ source ./tools/lib.bash
 do_show_status() {
 	dirname=$(repo_to_dir $1)
 	echo ""
-	(run cd $dirname && run git status)
+	(run cd $dirname && run git status && run git --no-pager log -1 --oneline)
 }
 
 for_each_repo do_show_status
