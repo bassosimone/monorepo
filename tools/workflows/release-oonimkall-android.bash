@@ -13,17 +13,12 @@ workflow_run() {
 	local cli="./repo/probe-cli"
 	local gomobile=$($golang_go env GOPATH)/bin/gomobile
 	(
-		local tempdir=$(mktemp -d)
-		run cd $tempdir
-		run $golang_go mod init example.org/gomobile
-		run $golang_go get -d golang.org/x/mobile/...
-		run $golang_go install golang.org/x/mobile/cmd/gomobile@latest
-		run $golang_go install golang.org/x/mobile/cmd/gobind@latest
-		run $gomobile init
-		run rm -rf $tempdir
-	)
-	(
 		run cd $cli
+		# TODO(bassosimone): figure out why using `go install` as
+		# recommended by the warning that appears when running the
+		# following command causes `$gomobile init` to fail.
+		run $golang_go get -u golang.org/x/mobile/cmd/gomobile
+		run $gomobile init
 		run export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/$android_ndk_version
 		run export PATH=$oonigo_path:$($golang_go env GOPATH)/bin:$PATH
 		run which gobind
@@ -33,6 +28,6 @@ workflow_run() {
 		run $gomobile bind -target android -o oonimkall.aar \
 			-ldflags "-s -w" ./pkg/oonimkall
 	)
-	run mv $cli/oonimkall.aar ./release
-	run mv $cli/oonimkall-sources.jar ./release
+	run mv $cli/oonimkall.aar ./output
+	run mv $cli/oonimkall-sources.jar ./output
 }
