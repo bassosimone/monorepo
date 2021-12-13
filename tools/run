@@ -8,28 +8,22 @@ if [[ $# -ne 1 ]]; then
 	echo "usage: $0 workflow" 1>&2
 	echo "" 1>&2
 	echo "workflows:" 1>&2
-	echo "- desktop-dev-linux-amd64" 1>&2
-	echo "" 1>&2
+	for file in $(ls ./tools/workflows/*.bash); do
+		printf "%s" "- $(basename $file | sed 's/\.bash$//g'): " 1>&2
+		(
+			source $file
+			printf "%s\n" "$(workflow_info)" 1>&2
+		)
+	done
 	exit 1
 fi
-workflow=$1
+workflow=$1.bash
+
+if [[ ! -f ./tools/workflows/$workflow ]]; then
+	echo "fatal: no such workflow: $workflow" 1>&2
+	exit 1
+fi
 
 source ./tools/lib.bash
-
-do_desktop_dev() {
-	run mkdir -p ./repo/probe-desktop/build/probe-cli/$1
-	(run cd repo/probe-cli && go build -v -ldflags "-s -w" ./cmd/ooniprobe)
-	run cp -p ./repo/probe-cli/ooniprobe \
-		./repo/probe-desktop/build/probe-cli/$1
-	(run cd repo/probe-desktop && yarn install && yarn dev)
-}
-
-case $workflow in
-"desktop-dev-linux-amd64")
-	do_desktop_dev linux_amd64
-	;;
-*)
-	echo "fatal: unknown workflow: $workflow" 1>&2
-	exit 1
-	;;
-esac
+source ./tools/workflows/$workflow
+workflow_run

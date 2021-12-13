@@ -3,6 +3,7 @@ repositories=(
 	git@github.com:ooni/api
 	git@github.com:ooni/asn-db-generator
 	git@github.com:ooni/backend
+	git@github.com:ooni/pipeline
 	git@github.com:ooni/probe-android
 	git@github.com:ooni/probe-assets
 	git@github.com:ooni/probe-cli

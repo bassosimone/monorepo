@@ -34,7 +34,7 @@ repo_to_dir() {
 }
 
 run() {
-	echo "+ $@" 1>&2
+	echo "monorepo: + $@" 1>&2
 	"$@"
 }
 
