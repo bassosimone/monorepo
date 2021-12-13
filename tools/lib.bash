@@ -1,5 +1,10 @@
 # Library containing functions
 
+get_branch_name() {
+	local dirname=$(repo_to_dir $1)
+	(cd $dirname && git symbolic-ref --short HEAD)
+}
+
 fail_if_dirty() {
 	dirname=$(repo_to_dir $1)
 	(cd $dirname && [[ -z $(git status -s) ]] || {
