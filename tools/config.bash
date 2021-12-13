@@ -32,3 +32,9 @@ oonigo_version=oonigo$golang_version
 oonigo_sdk=$sdk_base_dir/$oonigo_version
 oonigo_path=$oonigo_sdk/bin
 oonigo_go=$oonigo_path/go
+
+# The keystore to use for signing experimental-full-release builds
+android_efr_keystore=ooniprobe-efr.jks
+android_efr_keystore_password=ooniprobe
+android_efr_keystore_keyalias=key0
+android_efr_keystore_validity=7
