@@ -1,6 +1,5 @@
-
 workflow_info() {
-    echo "builds cli and runs desktop in dev mode using such a cli"
+    echo "runs desktop in dev mode with a cli build in dev mode"
 }
 
 workflow_run() {
@@ -18,7 +17,7 @@ workflow_run() {
 	run mkdir -p $desktop/build/probe-cli/$target
 	(
         run cd $cli
-        run go build -ldflags "-s -w" ./cmd/ooniprobe
+        run $golang_go build -ldflags "-s -w" ./cmd/ooniprobe
     )
 	run cp -p $cli/ooniprobe $desktop/build/probe-cli/$target
 	(
