@@ -11,6 +11,7 @@ workflow_run() {
         echo "fatal: this command only works on amd64" 1>&2
         exit 1
     fi
+    run ./tools/run sdk-go
     local cli="./repo/probe-cli"
     local desktop="./repo/probe-desktop"
     local target="linux_amd64"
