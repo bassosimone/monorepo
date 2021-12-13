@@ -18,6 +18,8 @@ workflow_run() {
 	run mkdir -p $desktop/build/probe-cli/$target
 	(
 		run cd $cli
+		# TODO(bassosimone): add support for psiphon
+		# TODO(bassosimone): run the build inside docker
 		run $golang_go build -ldflags "-s -w" ./cmd/ooniprobe
 	)
 	run cp -p $cli/ooniprobe $desktop/build/probe-cli/$target
