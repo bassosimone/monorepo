@@ -13,9 +13,9 @@ workflow_run() {
 	fi
 	if ! [[ -x $oonigo_go ]]; then
 		(
-            run cd $oonigo_sdk/src
+			run cd $oonigo_sdk/src
 			run export PATH=$golang_path:$PATH
-            run ./make.bash
+			run ./make.bash
 		)
 	fi
 }
