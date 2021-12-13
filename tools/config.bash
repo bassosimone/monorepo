@@ -18,3 +18,10 @@ golang_version="1.17.4"
 golang_sdk=$HOME/sdk/go${golang_version}
 golang_path=${golang_sdk}/bin
 golang_go=${golang_path}/go
+
+# The Android SDK to use
+android_sdk=env
+android_cmdline_tools_version=latest
+android_build_tools_version=32.0.0
+android_ndk_version=23.1.7779620
+android_platform_version=android-31
