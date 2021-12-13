@@ -3,10 +3,6 @@ workflow_info() {
 }
 
 workflow_run() {
-    if [[ "$android_sdk" != "env" ]]; then
-        echo "fatal: we support the 'env' use case only" 1>&2
-        exit 1
-    fi
     if [[ -z "$ANDROID_HOME" ]]; then
         echo "fatal: ANDROID_HOME is not set" 1>&2
         exit 1
