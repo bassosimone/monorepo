@@ -11,7 +11,6 @@ workflow_run() {
 	run ./tools/run sdk-android
 	run ./tools/run sdk-oonigo
 	local cli="./repo/probe-cli"
-	local android="./repo/probe-android"
 	local gomobile=$($golang_go env GOPATH)/bin/gomobile
 	(
 		local tempdir=$(mktemp -d)
