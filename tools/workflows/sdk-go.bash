@@ -3,7 +3,7 @@ workflow_info() {
 }
 
 workflow_run() {
-	if [[ -z $golang_version ]]; then
+	if [[ -z "${golang_version+x}" ]]; then
 		echo "fatal: golang_version is not set" 1>&2
 		exit 1
 	fi

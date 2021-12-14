@@ -3,7 +3,7 @@ workflow_info() {
 }
 
 workflow_run() {
-	if [[ -z "$ANDROID_HOME" ]]; then
+	if [[ -z "${ANDROID_HOME+x}" ]]; then
 		echo "fatal: ANDROID_HOME is not set" 1>&2
 		exit 1
 	fi
