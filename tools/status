@@ -22,7 +22,7 @@ do_show_status() {
 	done
 	local branch_name=$(get_branch_name $1)
 	local ref=$(cd $dirname && git --no-pager log -1 --oneline)
-	printf "[$branch_name] $ref\n"
+	printf "[%s] %s\n" "$branch_name" "$ref"
 	(
 		cd $dirname
 		git status -s
