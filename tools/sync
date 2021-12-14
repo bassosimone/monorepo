@@ -22,14 +22,20 @@ maybe_clone() {
 
 maybe_pull() {
 	dirname=$(repo_to_dir $1)
-	(run cd $dirname && run git pull -q)
+	(run cd $dirname && run git pull)
 }
 
-do_sync() {
+prune_remote_branches() {
+	dirname=$(repo_to_dir $1)
+	(run cd $dirname && run git remote prune origin)
+}
+
+do_sync_and_prune() {
 	maybe_clone $1
 	fail_if_not_main $1
 	fail_if_dirty $1
 	maybe_pull $1
+	prune_remote_branches $1
 }
 
-for_each_repo do_sync
+for_each_repo do_sync_and_prune
