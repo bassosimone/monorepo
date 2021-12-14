@@ -14,8 +14,14 @@ source ./tools/lib.bash
 do_reset() {
 	dirname=$(repo_to_dir $1)
 	echo ""
-	(run cd $dirname && run git reset --hard HEAD && run git checkout main &&
-		run git branch | run grep -v main | run xargs git branch -D)
+	(
+		run cd $dirname
+		run git reset --hard HEAD
+		run git checkout main
+		for branch in $(run git branch | run grep -v main); do
+			run git branch -D $branch
+		done
+	)
 }
 
 for_each_repo do_reset
