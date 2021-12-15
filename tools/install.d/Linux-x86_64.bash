@@ -1,7 +1,7 @@
 install_golang() {
     # note: see variables defined in ./tools/config.bash
-    local golang_sha256="617a46bd083e59877bb5680998571b3ddd4f6dcdaf9f8bf65ad4edc8f3eafb13"
-    local golang_tarball=go${golang_version}.linux-arm64.tar.gz
+    local golang_sha256="adab2483f644e2f8a10ae93122f0018cef525ca48d0b8764dae87cb5f4fd4206"
+    local golang_tarball=go${golang_version}.linux-amd64.tar.gz
     if [[ -d $golang_sdk ]]; then
         return
     fi
@@ -35,13 +35,12 @@ check_whether_we_have_qemu_user_static() {
 
 install_android_sdk() {
     # note: see variables defined in ./tools/config.bash
-    if ! [[ -z "${ANDROID_HOME+x}" ]]; then
+    if [[ -d $android_sdk ]]; then
         return
     fi
     local clitools_file="commandlinetools-linux-7583922_latest.zip"
     local clitools_url="https://dl.google.com/android/repository/$clitools_file"
     local clitools_sha256="124f2d5115eee365df6cf3228ffbca6fc3911d16f8025bebd5b1c6e2fcfa7faf"
-    local android_sdk=$HOME/sdk/android
     run curl -fsSLO $clitools_url
     echo "${clitools_sha256}  ${clitools_file}" > SHA256SUMS
     run sha256sum -c SHA256SUMS

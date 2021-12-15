@@ -3,10 +3,6 @@ workflow_info() {
 }
 
 workflow_run() {
-	if [[ -z "${ANDROID_HOME+x}" ]]; then
-		echo "fatal: ANDROID_HOME is not set" 1>&2
-		exit 1
-	fi
 	run ./tools/run sdk-go
 	run ./tools/run sdk-android
 	run ./tools/run sdk-oonigo
@@ -19,6 +15,7 @@ workflow_run() {
 		# following command causes `$gomobile init` to fail.
 		run $golang_go get -u golang.org/x/mobile/cmd/gomobile
 		run $gomobile init
+		run export ANDROID_HOME=$android_sdk
 		run export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/$android_ndk_version
 		run export PATH=$oonigo_path:$($golang_go env GOPATH)/bin:$PATH
 		run which gobind

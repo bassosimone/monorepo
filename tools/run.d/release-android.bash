@@ -3,10 +3,6 @@ workflow_info() {
 }
 
 workflow_run() {
-	if [[ -z "${ANDROID_HOME+x}" ]]; then
-		echo "fatal: ANDROID_HOME is not set" 1>&2
-		exit 1
-	fi
     run ./tools/run dev-android-keystore
 	local android="./repo/probe-android"
 	local name_unsigned="ooniprobe-unsigned.apk"
@@ -18,6 +14,7 @@ workflow_run() {
 	)
 	(
 		run cd $android
+		run export ANDROID_HOME=$android_sdk
 		run ./gradlew assembleStableFullRelease
 		local output="./app/build/outputs/apk/stableFull/release"
 		local oname="app-stable-full-release-unsigned.apk"
@@ -25,7 +22,7 @@ workflow_run() {
 	)
 	(
 		run cd output
-		export PATH=$ANDROID_HOME/build-tools/$android_build_tools_version:$PATH
+		run export PATH=$android_sdk/build-tools/$android_build_tools_version:$PATH
 		run zipalign -p 4 $name_unsigned $name_aligned
 		run apksigner sign --ks $android_efr_keystore --out $name_signed \
 			--ks-pass pass:$android_efr_keystore_password $name_aligned
