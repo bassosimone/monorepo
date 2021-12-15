@@ -1,5 +1,19 @@
 # Library containing functions
 
+require_commands() {
+    while [[ $# > 0 ]]; do
+        local name=$1
+        shift
+        echo -n "monorepo: checking for $name... "
+        local cmd=$(command -v $name)
+        if [[ -z "$cmd" ]]; then
+            echo "not found"
+            exit 1
+        fi
+        echo $cmd
+    done
+}
+
 get_branch_name() {
 	local dirname=$(repo_to_dir $1)
 	(cd $dirname && git symbolic-ref --short HEAD)
