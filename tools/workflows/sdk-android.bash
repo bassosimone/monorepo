@@ -13,7 +13,7 @@ workflow_run() {
 		exit 1
 	fi
 	local sdkmanager=$cmdline_tools/bin/sdkmanager
-	run $sdkmanager --install "ndk;$android_ndk_version"
-	run $sdkmanager --install "build-tools;$android_build_tools_version"
-	run $sdkmanager --install "platforms;$android_platform_version"
+	echo "Yes" | run $sdkmanager --install "ndk;$android_ndk_version"
+	echo "Yes" | run $sdkmanager --install "build-tools;$android_build_tools_version"
+	echo "Yes" | run $sdkmanager --install "platforms;$android_platform_version"
 }

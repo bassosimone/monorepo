@@ -1,5 +1,5 @@
 workflow_info() {
-	echo "downloads the required Go SDK"
+	echo "verifies we're using the right version of go"
 }
 
 workflow_run() {
@@ -7,8 +7,18 @@ workflow_run() {
 		echo "fatal: golang_version is not set" 1>&2
 		exit 1
 	fi
-	if ! [[ -d $golang_sdk ]]; then
-		run go install golang.org/dl/go${golang_version}@latest
-		run $HOME/go/bin/go${golang_version} download
+	echo -n "monorepo: checking for go... "
+	local golang=$(command -v go)
+	if [[ -z "${golang}" ]]; then
+		echo "not found"
+		exit 1
 	fi
+	echo "${golang}"
+	echo -n "monorepo: checking whether golang version is ${golang_version}... "
+	local real_version=$(go version | awk '{print $3}')
+	if [[ "go${golang_version}" != "${real_version}" ]]; then
+		echo "no"
+		exit 1
+	fi
+	echo "yes"
 }

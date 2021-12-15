@@ -22,6 +22,12 @@ golang_path=$golang_sdk/bin
 golang_go=$golang_path/go
 
 # The Android SDK to use
+if [[ -z "${ANDROID_HOME+x}" && -d $HOME/sdk/android ]]; then
+	# If ANDROID_HOME is set, just use that. Otherwiser, if the
+	# user has downloaded the SDK using `./tools/install`, we're
+	# going to set ANDROID_HOME to point to that.
+	export ANDROID_HOME=$HOME/sdk/android
+fi
 android_cmdline_tools_version=latest
 android_build_tools_version=32.0.0
 android_ndk_version=23.1.7779620
