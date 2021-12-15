@@ -3,7 +3,7 @@ workflow_info() {
 }
 
 workflow_run() {
-    run ./tools/run dev-android-keystore
+	run ./tools/run dev-android-keystore
 	local android="./repo/probe-android"
 	local name_unsigned="ooniprobe-unsigned.apk"
 	local name_aligned="ooniprobe-unsigned-aligned.apk"

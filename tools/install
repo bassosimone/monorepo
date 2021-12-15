@@ -9,8 +9,8 @@ arch=$(uname -m)
 installer=./tools/install.d/$platform-$arch.bash
 
 if ! [[ -f $installer ]]; then
-    echo "fatal: we don't support $platform-$arch yet" 1>&2
-    exit 1
+	echo "fatal: we don't support $platform-$arch yet" 1>&2
+	exit 1
 fi
 
 echo "Welcome!"
