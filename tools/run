@@ -8,7 +8,7 @@ if [[ $# -ne 1 ]]; then
 	echo "usage: $0 workflow" 1>&2
 	echo "" 1>&2
 	echo "workflows:" 1>&2
-	for file in $(ls ./tools/workflows/*.bash); do
+	for file in $(ls ./tools/run.d/*.bash); do
 		printf "%s" "- $(basename $file | sed 's/\.bash$//g'): " 1>&2
 		(
 			source $file
@@ -19,11 +19,11 @@ if [[ $# -ne 1 ]]; then
 fi
 workflow=$1.bash
 
-if [[ ! -f ./tools/workflows/$workflow ]]; then
+if [[ ! -f ./tools/run.d/$workflow ]]; then
 	echo "fatal: no such workflow: $workflow" 1>&2
 	exit 1
 fi
 
 source ./tools/lib.bash
-source ./tools/workflows/$workflow
+source ./tools/run.d/$workflow
 workflow_run
