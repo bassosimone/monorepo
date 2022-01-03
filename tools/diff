@@ -13,7 +13,6 @@ source ./tools/lib.bash
 
 do_show_diff() {
 	dirname=$(repo_to_dir $1)
-	echo ""
 	(cd $dirname && git --no-pager diff --src-prefix=$dirname/a/ \
 		--dst-prefix=$dirname/b/ --color=always)
 }
