@@ -17,7 +17,7 @@ repositories=(
 sdk_base_dir=$HOME/sdk
 
 # The version of golang to use
-golang_version="1.17.4"
+golang_version="1.17.6"
 golang_sdk=$sdk_base_dir/go$golang_version
 golang_path=$golang_sdk/bin
 golang_go=$golang_path/go
