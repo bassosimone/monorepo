@@ -1,7 +1,6 @@
 # List of repositories to sync
 repositories=(
 	git@github.com:ooni/api
-	git@github.com:ooni/asn-db-generator
 	git@github.com:ooni/backend
 	git@github.com:ooni/pipeline
 	git@github.com:ooni/probe-android
