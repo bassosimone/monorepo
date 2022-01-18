@@ -1,6 +1,5 @@
 install_golang() {
 	# note: see variables defined in ./tools/config.bash
-	local golang_sha256="adab2483f644e2f8a10ae93122f0018cef525ca48d0b8764dae87cb5f4fd4206"
 	local golang_tarball=go${golang_version}.linux-amd64.tar.gz
 	if [[ -d $golang_sdk ]]; then
 		return

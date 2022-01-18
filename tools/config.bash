@@ -18,6 +18,7 @@ sdk_base_dir=$HOME/sdk
 
 # The version of golang to use
 golang_version="1.17.6"
+golang_sha256=231654bbf2dab3d86c1619ce799e77b03d96f9b50770297c8f4dff8836fc8ca2
 golang_sdk=$sdk_base_dir/go$golang_version
 golang_path=$golang_sdk/bin
 golang_go=$golang_path/go
