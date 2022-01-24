@@ -10,8 +10,8 @@ if [[ $# -ne 1 ]]; then
 fi
 commit_message_file=$(readlink -f $1)
 if [[ ! -f $commit_message_file ]]; then
-    echo "fatal: $commit_message_file does not exist" 1>&2
-    exit 1
+	echo "fatal: $commit_message_file does not exist" 1>&2
+	exit 1
 fi
 
 source ./tools/lib.bash
@@ -20,9 +20,9 @@ do_commit() {
 	local dirname=$(repo_to_dir $1)
 	(
 		run cd $dirname
-        if [[ -z $(git status -s) ]]; then
-            return
-        fi
+		if [[ -z $(git status -s) ]]; then
+			return
+		fi
 		run git commit -aF $commit_message_file
 	)
 }
