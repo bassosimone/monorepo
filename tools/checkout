@@ -13,7 +13,7 @@ branch_name=$1
 source ./tools/lib.bash
 
 do_checkout() {
-	dirname=$(repo_to_dir $1)
+	local dirname=$(repo_to_dir $1)
 	(
 		run cd $dirname
 		run git checkout $branch_name || run git checkout -b $branch_name
