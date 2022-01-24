@@ -24,6 +24,7 @@ if [[ ! -f ./tools/run.d/$workflow ]]; then
 	exit 1
 fi
 
+source ./actions/lib.bash
 source ./tools/lib.bash
 source ./tools/run.d/$workflow
 workflow_run
