@@ -8,6 +8,11 @@ if [[ $# -ne 0 ]]; then
 	echo "usage: $0" 1>&2
 	exit 1
 fi
+if [[ -z "${MONOREPO_DIFF_INNER+x}" ]]; then
+	export MONOREPO_DIFF_INNER=1
+	$0 | less
+	exit 0
+fi
 
 source ./tools/lib.bash
 
