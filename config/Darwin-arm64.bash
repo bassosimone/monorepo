@@ -1,0 +1,2 @@
+golang_tarball=go${golang_version}.darwin-arm64.tar.gz
+golang_sha256=dc54f3f4099e2be9e9c33bf926a7dc3ad64f34717142f7abcaff9ae44bc03d0c
