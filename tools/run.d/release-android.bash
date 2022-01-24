@@ -2,6 +2,8 @@ workflow_info() {
 	echo "builds unsigned stable-full android app release"
 }
 
+# TODO: this workflow should be split into actions
+
 workflow_run() {
 	run ./tools/run dev-android-keystore
 	local android="./repo/probe-android"

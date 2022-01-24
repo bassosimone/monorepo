@@ -2,6 +2,8 @@ workflow_info() {
 	echo "runs desktop in dev mode with a cli build in dev mode"
 }
 
+# TODO: here we should build the cli using the ooniprobe-dev action
+
 workflow_run() {
 	if [[ "$(uname -s)" != "Linux" ]]; then
 		echo "fatal: this command only works on Linux" 1>&2
