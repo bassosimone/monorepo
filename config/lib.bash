@@ -3,7 +3,7 @@ platform() {
 }
 
 fatal() {
-	echo "🚨$@" 1>&2
+	echo "🚨 $@" 1>&2
 	exit 1
 }
 
@@ -20,7 +20,7 @@ variable_not_set() {
 }
 
 run() {
-	echo "🐚[$(pwd | sed "s|$HOME|~|g")] $@" 1>&2
+	echo "🐚 $@" 1>&2
 	"$@"
 }
 
