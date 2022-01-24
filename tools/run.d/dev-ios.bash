@@ -3,7 +3,9 @@ workflow_info() {
 }
 
 workflow_run() {
-	cd ./repo/probe-ios
-	pod install
-	open ooniprobe.xcworkspace
+	(
+		run cd ./repo/probe-ios
+		run pod install
+		run open ooniprobe.xcworkspace
+	)
 }

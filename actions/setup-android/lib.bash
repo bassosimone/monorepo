@@ -5,7 +5,7 @@ setup_android_depends() {
 setup_android_main() {
 	[[ -n ${sdk_base_dir+x} ]] || variable_not_set sdk_base_dir
 	[[ -n ${android_sdk+x} ]] || variable_not_set android_sdk
-    local cmdline_tools=$android_sdk/cmdline-tools/latest
+	local cmdline_tools=$android_sdk/cmdline-tools/latest
 	if [[ ! -d $cmdline_tools ]]; then
 		# Apparently, the same version works everywhere because Java is portable \m/
 		local clitools_file="commandlinetools-linux-7583922_latest.zip"

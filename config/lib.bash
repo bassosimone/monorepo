@@ -36,7 +36,6 @@ require_commands() {
 	done
 }
 
-
 # List of repositories to sync
 repositories=(
 	git@github.com:ooni/api
