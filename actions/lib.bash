@@ -1,3 +1,5 @@
+source ./config/lib.bash
+
 fatal() {
 	echo "🚨$@" 1>&2
 	exit 1
