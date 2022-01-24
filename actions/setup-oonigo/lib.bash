@@ -3,10 +3,10 @@ setup_oonigo_depends() {
 }
 
 setup_oonigo_main() {
-	[[ ! -z ${sdk_base_dir+x} ]] || variable_not_set sdk_base_dir
-	[[ ! -z ${oonigo_sdk+x} ]] || variable_not_set oonigo_sdk
-	[[ ! -z ${oonigo_version+x} ]] || variable_not_set oonigo_version
-	[[ ! -z ${oonigo_go+x} ]] || variable_not_set oonigo_go
+	[[ -n ${sdk_base_dir+x} ]] || variable_not_set sdk_base_dir
+	[[ -n ${oonigo_sdk+x} ]] || variable_not_set oonigo_sdk
+	[[ -n ${oonigo_version+x} ]] || variable_not_set oonigo_version
+	[[ -n ${oonigo_go+x} ]] || variable_not_set oonigo_go
 	run mkdir -p $sdk_base_dir
 	if ! [[ -d $oonigo_sdk ]]; then
 		(

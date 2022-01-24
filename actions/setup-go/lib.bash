@@ -3,10 +3,10 @@ setup_go_depends() {
 }
 
 setup_go_main() {
-	[[ ! -z ${golang_sdk+x} ]] || variable_not_set golang_sdk
-	[[ ! -z ${golang_tarball+x} ]] || variable_not_set golang_tarball
-	[[ ! -z ${golang_sha256+x} ]] || variable_not_set golang_sha256
-	[[ ! -z ${sdk_base_dir+x} ]] || variable_not_set sdk_base_dir
+	[[ -n ${golang_sdk+x} ]] || variable_not_set golang_sdk
+	[[ -n ${golang_tarball+x} ]] || variable_not_set golang_tarball
+	[[ -n ${golang_sha256+x} ]] || variable_not_set golang_sha256
+	[[ -n ${sdk_base_dir+x} ]] || variable_not_set sdk_base_dir
 	[[ -d ${golang_sdk} ]] || {
 		run curl -fsSLO https://go.dev/dl/${golang_tarball}
 		echo "${golang_sha256}  ${golang_tarball}" >SHA256SUMS

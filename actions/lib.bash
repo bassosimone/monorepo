@@ -18,7 +18,7 @@ variable_not_set() {
 }
 
 run() {
-	echo "🐚[$(pwd)] $@" 1>&2
+	echo "🐚[$(pwd | sed "s|$HOME|~|g")] $@" 1>&2
 	"$@"
 }
 
@@ -27,7 +27,7 @@ require_commands() {
 		local name=$1
 		shift
 		local cmd=$(command -v $name)
-		if [[ -z "$cmd" ]]; then
+		if [[ -z $cmd ]]; then
 			fatal "command $name not found"
 		fi
 		success "command $name is $cmd"
@@ -42,7 +42,11 @@ run_action() {
 	"$1_main"
 }
 
-source ./actions/setup-defaults/lib.bash
-source ./actions/setup-go/lib.bash
-source ./actions/setup-oonigo/lib.bash
-source ./actions/setup-shfmt/lib.bash
+actions=()
+for dir in $(ls ./actions); do
+	if [[ -d ./actions/$dir ]]; then
+		source ./actions/$dir/lib.bash
+		name=$(echo $dir | sed 's/-/_/g')
+		actions+=($name)
+	fi
+done
