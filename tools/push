@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Pushes to the remote repository
+
+set -euo pipefail
+
+if [[ $# -ne 0 ]]; then
+	echo "usage: $0" 1>&2
+	exit 1
+fi
+
+source ./tools/lib.bash
+
+do_push() {
+	local dirname=$(repo_to_dir $1)
+	local branchname=$(get_branch_name $1)
+	(
+		run cd $dirname
+		# Note: need to use `--` because probe-desktop has both a branch
+		# named main and a folder named main. It may be that changing the
+		# default branch name to trunk would simplify things.
+		if [[ -z "$(git diff main --)" ]]; then
+			return
+		fi
+		run git push -u origin $branchname
+	)
+}
+
+for_each_repo do_push
