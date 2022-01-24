@@ -2,6 +2,8 @@ workflow_info() {
 	echo "builds oonimkall.aar and creates experimental-full-release .apk using it"
 }
 
+# TODO: this workflow should be split into actions
+
 workflow_run() {
 	run ./tools/run dev-android-keystore
 	run ./tools/run release-oonimkall-android

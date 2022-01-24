@@ -2,6 +2,8 @@ workflow_info() {
 	echo "generates a self-signed key for signing experimental releases"
 }
 
+# TODO: this workflow should be an action
+
 workflow_run() {
 	local ksfile=./output/$android_efr_keystore
 	if [[ -f $ksfile ]]; then

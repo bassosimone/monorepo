@@ -1,0 +1,2 @@
+golang_tarball=go${golang_version}.linux-amd64.tar.gz
+golang_sha256=231654bbf2dab3d86c1619ce799e77b03d96f9b50770297c8f4dff8836fc8ca2

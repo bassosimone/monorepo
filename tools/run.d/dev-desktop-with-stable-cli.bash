@@ -3,7 +3,6 @@ workflow_info() {
 }
 
 workflow_run() {
-	local desktop=./repo/probe-desktop
 	(
 		run cd repo/probe-desktop
 		run yarn install

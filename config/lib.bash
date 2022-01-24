@@ -1,3 +1,41 @@
+platform() {
+	echo "$(uname -s)-$(uname -m)"
+}
+
+fatal() {
+	echo "🚨 $@" 1>&2
+	exit 1
+}
+
+info() {
+	echo "🗒️ $@" 1>&2
+}
+
+success() {
+	echo "✔️ $@" 1>&2
+}
+
+variable_not_set() {
+	fatal "variable not set: $1"
+}
+
+run() {
+	echo "🐚 $@" 1>&2
+	"$@"
+}
+
+require_commands() {
+	while [[ $# > 0 ]]; do
+		local name=$1
+		shift
+		local cmd=$(command -v $name)
+		if [[ -z $cmd ]]; then
+			fatal "command $name not found"
+		fi
+		success "command $name is $cmd"
+	done
+}
+
 # List of repositories to sync
 repositories=(
 	git@github.com:ooni/api
@@ -13,30 +51,33 @@ repositories=(
 	git@github.com:ooni/translations
 )
 
+# Base dir where we install the SDK
 sdk_base_dir=$HOME/sdk
 
-# The version of golang to use
+# Go
 golang_version="1.17.6"
-golang_sha256=231654bbf2dab3d86c1619ce799e77b03d96f9b50770297c8f4dff8836fc8ca2
 golang_sdk=$sdk_base_dir/go$golang_version
 golang_path=$golang_sdk/bin
 golang_go=$golang_path/go
 
-# The Android SDK to use
+# Android
 android_sdk=$HOME/sdk/android
 android_cmdline_tools_version=latest
 android_build_tools_version=32.0.0
 android_ndk_version=23.1.7779620
 android_platform_version=android-31
 
-# The ooni/go SDK to use
+# github.com/ooni/go
 oonigo_version=oonigo$golang_version
 oonigo_sdk=$sdk_base_dir/$oonigo_version
 oonigo_path=$oonigo_sdk/bin
 oonigo_go=$oonigo_path/go
 
-# The keystore to use for signing experimental-full-release builds
+# Android EFR (= ExperimentalFullRelease) keystore
 android_efr_keystore=ooniprobe-efr.jks
 android_efr_keystore_password=ooniprobe
 android_efr_keystore_keyalias=key0
 android_efr_keystore_validity=7
+
+# Platform specific config
+source ./config/$(platform).bash
