@@ -4,13 +4,13 @@
 
 set -euo pipefail
 
-if [[ $# -ne 0 ]]; then
-	echo "usage: $0" 1>&2
-	exit 1
+diff_args="$@"
+if [[ $diff_args == "" ]]; then
+	diff_args="--"
 fi
 if [[ -z ${MONOREPO_DIFF_INNER+x} ]]; then
 	export MONOREPO_DIFF_INNER=1
-	$0 | less
+	$0 "$diff_args" | less
 	exit 0
 fi
 
@@ -19,7 +19,7 @@ source ./tools/lib.bash
 do_show_diff() {
 	dirname=$(repo_to_dir $1)
 	(cd $dirname && git --no-pager diff --src-prefix=$dirname/a/ \
-		--dst-prefix=$dirname/b/ --color=always)
+		--dst-prefix=$dirname/b/ --color=always "$diff_args")
 }
 
 for_each_repo do_show_diff
