@@ -19,7 +19,7 @@ build_oonimkall_android_main() {
 		run which gobind
 		run which gomobile
 		run which go
-		run $gomobile bind -target android -o oonimkall.aar \
+		run $gomobile bind -x -target android -o oonimkall.aar \
 			-tags ooni_psiphon_config -ldflags "-s -w" ./pkg/oonimkall
 	)
 	run mv $cli/oonimkall.aar $destdir
