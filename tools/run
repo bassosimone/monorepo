@@ -1,30 +1,4 @@
 #!/bin/bash
-
-# Runs a specific testing workflow
-
+# Runs a specific workflow
 set -euo pipefail
-
-if [[ $# -ne 1 ]]; then
-	echo "usage: $0 workflow" 1>&2
-	echo "" 1>&2
-	echo "workflows:" 1>&2
-	for file in $(ls ./tools/run.d/*.bash); do
-		printf "%s" "- $(basename $file | sed 's/\.bash$//g'): " 1>&2
-		(
-			source $file
-			printf "%s\n" "$(workflow_info)" 1>&2
-		)
-	done
-	exit 1
-fi
-workflow=$1.bash
-
-if [[ ! -f ./tools/run.d/$workflow ]]; then
-	echo "fatal: no such workflow: $workflow" 1>&2
-	exit 1
-fi
-
-source ./actions/lib.bash
-source ./tools/lib.bash
-source ./tools/run.d/$workflow
-workflow_run
+go run ./tools/run-workflow "$@"

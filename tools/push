@@ -9,7 +9,7 @@ if [[ $# -ne 0 ]]; then
 	exit 1
 fi
 
-source ./tools/lib.bash
+source ./tools/libgit.bash
 
 do_push() {
 	local dirname=$(repo_to_dir $1)

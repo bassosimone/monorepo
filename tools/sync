@@ -10,7 +10,7 @@ if [[ $# -ne 0 ]]; then
 	exit 1
 fi
 
-source ./tools/lib.bash
+source ./tools/libgit.bash
 
 maybe_clone() {
 	dirname=$(repo_to_dir $1)

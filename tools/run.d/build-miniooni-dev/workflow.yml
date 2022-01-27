@@ -1,0 +1,5 @@
+description: |
+  Builds a development version of miniooni.
+
+actions:
+  - action: build-miniooni-dev

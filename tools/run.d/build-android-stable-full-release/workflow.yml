@@ -1,0 +1,5 @@
+description: |
+  Builds a stableFullRelease of ooni/probe-android.
+
+actions:
+  - action: build-android-stable-full-release

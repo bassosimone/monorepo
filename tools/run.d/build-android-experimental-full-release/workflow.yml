@@ -1,0 +1,13 @@
+description: |
+  Builds an experimentalFullRelease of ooni/probe-android
+  using an oonimkall.aar built from the current tree.
+
+actions:
+  - action: generate-android-keystore
+  - action: setup-android
+  - action: setup-go
+  - action: setup-oonigo
+  - action: copy-psiphon-config
+  - action: build-oonimkall-android
+  - action: build-android-experimental-full-release
+  - action: sign-android-apk

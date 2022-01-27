@@ -1,0 +1,5 @@
+description: |
+  Opens the ooni/probe-ios Xcode project.
+
+actions:
+  - action: open-xcode-for-ios
