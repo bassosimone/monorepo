@@ -1,0 +1,5 @@
+description: |
+  Creates a development ooniprobe build.
+
+actions:
+  - action: build-ooniprobe-dev

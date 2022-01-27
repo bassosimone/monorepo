@@ -1,0 +1,5 @@
+description: |
+  Builds a release of miniooni.
+
+actions:
+  - action: build-miniooni-release.

@@ -1,0 +1,6 @@
+description: |
+  Runs a development version of probe-desktop using the version
+  of the CLI configured inside probe-desktop.
+
+actions:
+  - action: run-desktop-with-stable-cli

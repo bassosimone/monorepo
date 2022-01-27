@@ -14,7 +14,7 @@ if [[ -z ${MONOREPO_DIFF_INNER+x} ]]; then
 	exit 0
 fi
 
-source ./tools/lib.bash
+source ./tools/libgit.bash
 
 do_show_diff() {
 	dirname=$(repo_to_dir $1)

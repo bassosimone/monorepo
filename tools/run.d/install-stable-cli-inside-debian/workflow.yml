@@ -1,0 +1,7 @@
+description: |
+  Opens a debian-stable docker shell where the version of
+  ooni/probe-cli configured in our debian repository has
+  just been installed.
+
+actions:
+  - action: run-stable-cli-inside-debian

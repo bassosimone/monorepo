@@ -1,0 +1,5 @@
+description: |
+  Shows how to create a workflow.
+
+actions:
+  - action: hello-world

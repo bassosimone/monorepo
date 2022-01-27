@@ -4,7 +4,7 @@
 
 set -euo pipefail
 
-source ./tools/lib.bash
+source ./tools/libgit.bash
 
 do_clean() {
 	local dirname=$(repo_to_dir $1)
@@ -15,4 +15,4 @@ do_clean() {
 }
 
 for_each_repo do_clean
-run rm -f ./output/*
+run rm -rf ./output/*

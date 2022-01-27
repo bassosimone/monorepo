@@ -1,0 +1,8 @@
+description: |
+  Builds a stableFullRelease of ooni/probe-android.
+
+actions:
+  - action: generate-android-keystore
+  - action: setup-android
+  - action: build-android-stable-full-release
+  - action: sign-android-apk

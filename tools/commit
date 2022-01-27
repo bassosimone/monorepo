@@ -14,7 +14,7 @@ if [[ ! -f $commit_message_file ]]; then
 	exit 1
 fi
 
-source ./tools/lib.bash
+source ./tools/libgit.bash
 
 do_commit() {
 	local dirname=$(repo_to_dir $1)

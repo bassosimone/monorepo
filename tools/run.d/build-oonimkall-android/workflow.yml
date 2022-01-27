@@ -1,0 +1,9 @@
+description: |
+  Builds an oonimkall.aar from the current tree.
+
+actions:
+  - action: setup-android
+  - action: setup-go
+  - action: setup-oonigo
+  - action: copy-psiphon-config
+  - action: build-oonimkall-android

@@ -1,0 +1,10 @@
+#!/bin/bash
+set -euo pipefail
+echo "🤓working directory: $workdir"
+source ./tools/libcore.bash
+source ./tools/run-action/lib.bash
+if [[ ! -f $workdir/once ]]; then
+	setup_defaults_main
+fi
+source ./tools/run.d/$1/action.bash
+action_main

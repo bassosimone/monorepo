@@ -1,41 +1,3 @@
-platform() {
-	echo "$(uname -s)-$(uname -m)"
-}
-
-fatal() {
-	echo "🚨 $@" 1>&2
-	exit 1
-}
-
-info() {
-	echo "🗒️ $@" 1>&2
-}
-
-success() {
-	echo "✔️ $@" 1>&2
-}
-
-variable_not_set() {
-	fatal "variable not set: $1"
-}
-
-run() {
-	echo "🐚 $@" 1>&2
-	"$@"
-}
-
-require_commands() {
-	while [[ $# > 0 ]]; do
-		local name=$1
-		shift
-		local cmd=$(command -v $name)
-		if [[ -z $cmd ]]; then
-			fatal "command $name not found"
-		fi
-		success "command $name is $cmd"
-	done
-}
-
 # List of repositories to sync
 repositories=(
 	git@github.com:ooni/api
@@ -78,6 +40,10 @@ android_efr_keystore=ooniprobe-efr.jks
 android_efr_keystore_password=ooniprobe
 android_efr_keystore_keyalias=key0
 android_efr_keystore_validity=7
+
+platform() {
+	echo "$(uname -s)-$(uname -m)"
+}
 
 # Platform specific config
 source ./config/$(platform).bash
