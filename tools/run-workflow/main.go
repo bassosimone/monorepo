@@ -45,6 +45,9 @@ type action struct {
 
 	// Env contains environment variables for the action itself.
 	Env map[string]string `yaml:"env"`
+
+	// Interactive indicates whether the action is interactive.
+	Interactive bool
 }
 
 // flags contains command line flags.
@@ -90,11 +93,25 @@ func showWorkflows(rootPath string) {
 // runSpecificAction runs the given action with the given index in the
 // context of the given workflow name and command line flags.
 func runSpecificAction(flags *flags, workflowName string, idx int, action *action) {
+	fmt.Fprintf(os.Stderr, "📌start action #%d: %s\n", idx, action.Action)
 	runner := path.Join(".", "tools", "run-action", "run")
 	cmd := execabs.Command(runner, action.Action)
-	cmd.Stdin = os.Stdin
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
+	if action.Interactive {
+		cmd.Stdin = os.Stdin
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+	} else {
+		logfile := path.Join(flags.Workdir, "LOG.txt")
+		logfp, err := os.OpenFile(logfile, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
+		exitOnError(err, "cannot create log file")
+		fmt.Fprintf(os.Stderr, "🤓appending logs to %s\n", logfile)
+		cmd.Stdout = logfp
+		cmd.Stderr = logfp
+		defer func() {
+			err := logfp.Close()
+			exitOnError(err, "cannot close logfile")
+		}()
+	}
 	// The environment variables order is: (1) current environ, (2) user
 	// variables, and (2) finally workdir directory. The last variable to
 	// be set into the environment takes precedence over other previous
@@ -105,7 +122,6 @@ func runSpecificAction(flags *flags, workflowName string, idx int, action *actio
 		cmd.Env = append(cmd.Env, variable) // 2
 	}
 	cmd.Env = append(cmd.Env, fmt.Sprintf("workdir=%s", flags.Workdir)) // 3
-	fmt.Fprintf(os.Stderr, "📌start action #%d: %s\n", idx, action.Action)
 	fmt.Fprintf(os.Stderr, "")
 	if flags.DryRun {
 		return

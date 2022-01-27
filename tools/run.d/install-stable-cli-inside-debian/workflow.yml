@@ -5,3 +5,4 @@ description: |
 
 actions:
   - action: install-stable-cli-inside-debian
+    interactive: true

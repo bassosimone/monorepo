@@ -1,12 +1,15 @@
 #!/bin/bash
 set -euo pipefail
+echo ""
+echo "🤓action name: $1"
+echo "🤓current time: $(date)"
 echo "🤓working directory: $workdir"
 source ./tools/libcore.bash
 source ./tools/run-action/lib.bash
+run ./tools/status
 if [[ ! -f $workdir/setup_defaults_once ]]; then
 	setup_defaults_main
 	touch $workdir/setup_defaults_once
 fi
-echo "🤓action name: $1"
 source ./tools/run.d/$1/action.bash
 action_main
