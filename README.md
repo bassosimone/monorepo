@@ -36,23 +36,25 @@ The base branch is forced to be `main` in each repository. The development workf
 6. you `commit` across all the repos;
 7. you `push` across all repos and (manually for now) open pull requests;
 8. you eventually merge all pull requests;
-8. you `reset` back to a clean tree.
+9. you `reset` back to a clean tree.
 
-Speaking of running development workflows, I originally used to have scripts in
-`tools/run.d` that one could invoke with the `./tools/run` command to run specific
-development workflows. For example, one could get an APK to test on device using
-the `./tools/run dev-android` command.
+To run a development or release workflow, you use the `./tools/run` command. Invoked
+without arguments, it prints its usage plus the names of the available workflows.
 
-While the `./tools/run dev-android` command is _still_ WAI in the moment in which
-I am writing these notes, the under-the-hood design has been changing a little since
-what I have described above. I am currently (slowly, because this is only done on a
-I-need-this-now basis) refactoring the code to have independent `actions` that
-could run in sequence as part of `pipelines`. This design seems one with which a
-bunch of people is familiar with and, also, crucially, is quite nice in separating
-more cleanly the actions. Otherwise, the set of scripts quickly become a maze.
+If you pass `./tools/run` the name of a workflow, it will run it.
 
-However, that is still up in the air and, in any case, I would like to avoid breaking
-too much the `./tools/run <name>` semantics for running a "pipeline". What shouldn't
-change, I think, is that `./tools/run` without arguments will list all the available
-"pipelines" that you could run. But maybe pipeline names will change.
+A workflow is a `workflow.yml` file in a subdirectory of `tools/run.d`. The name
+of the subdirectory is the name of the workflow.
 
+Each workflow step calls an action. An action is an (hopefully) reusable bash
+script named `action.bash` to also lives in subdirectories of `tools/run.d`.
+
+The same subdirectory could contain both a workflow and an action. This happens
+when the workflow invokes a namesake action.
+
+A directory without actions is a workflow that refers to differently named
+actions. A directory without a workflow only contains actions and cannot be
+called directly from `./tools/run`.
+
+See the `./tools/run.d/hello-world` directory for a very simple example
+of how to write a worklow and an action.
