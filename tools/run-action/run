@@ -1,6 +1,5 @@
 #!/bin/bash
 set -euo pipefail
-echo ""
 echo "🤓action name: $1"
 echo "🤓current time: $(date)"
 echo "🤓working directory: $workdir"
