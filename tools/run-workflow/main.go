@@ -57,19 +57,19 @@ type action struct {
 // flags contains command line flags.
 type flags struct {
 	// DryRun is the -n, --dry-run flag.
-	DryRun bool `doc:"just print which actions will be executed" short:"n"`
+	DryRun bool `doc:"just print which actions or command would be executed" short:"n"`
 
-	// Environ is th -E, --environ flag.
-	Environ []string `doc:"override workflow environment variables" short:"E"`
+	// Environ is the -E, --environ flag.
+	Environ []string `doc:"override the value of the given workflow-specific environment variable (e.g., -E netem=\"delay 100ms\")" short:"E"`
 
 	// Help is the -h, --help flag.
-	Help bool `doc:"print this help message" short:"h"`
+	Help bool `doc:"print either general usage (with no arguments) or workflow-specific info (e.g., ./tools/run --help <workflow>)" short:"h"`
 
 	// Skip is the -s, --skip <index> flag.
-	Skip int `doc:"skip directly to the action with the given index" short:"s"`
+	Skip int `doc:"skip directly to the action or command with the given index, ignoring the all previous ones (indexes start from zero)" short:"s"`
 
 	// Workdir is the -w, --workdir <dir> flag.
-	Workdir string `doc:"use this already-existing working dir" short:"w"`
+	Workdir string `doc:"reuse the given already-existing working dir <dir> rather than creating a new random one inside ./output" short:"w"`
 }
 
 // showWorkflows shows the existing workflows.
@@ -87,11 +87,7 @@ func showWorkflows(rootPath string) {
 		if err := yaml.Unmarshal(data, &workflow); err != nil {
 			return err // cannot parse yaml file
 		}
-		fmt.Printf("  %s:\n", path.Base(filePath))
-		fmt.Printf("\n")
-		for _, line := range strings.Split(wordwrap.WrapString(workflow.Description, 72), "\n") {
-			fmt.Printf("    %s\n", line)
-		}
+		fmt.Printf("  %s\n\n", path.Base(filePath))
 		return nil
 	})
 	exitOnError(err, "cannot show the list of workflows")
@@ -162,6 +158,13 @@ func runWorkflow(flags *flags, rootPath, workflowName string) {
 	var workflow workflow
 	err = yaml.Unmarshal(data, &workflow)
 	exitOnError(err, "cannot parse yaml file")
+	if flags.Help {
+		fmt.Printf("\n%s:\n", workflowName)
+		for _, line := range strings.Split(wordwrap.WrapString(workflow.Description, 72), "\n") {
+			fmt.Printf("  %s\n", line)
+		}
+		return
+	}
 	if flags.Workdir == "" {
 		workdir, err := os.MkdirTemp("./output", "")
 		exitOnError(err, "cannot create workdir directory")
@@ -178,23 +181,24 @@ func runWorkflow(flags *flags, rootPath, workflowName string) {
 func main() {
 	var flags flags
 	parser := getoptx.MustNewParser(&flags,
-		getoptx.SetPositionalArgumentsPlaceholder("[workflowName]"))
+		getoptx.SetPositionalArgumentsPlaceholder("[workflowName]"),
+		getoptx.SetProgramName("./tools/run"))
 	if err := parser.Getopt(os.Args); err != nil {
 		logError(err, "cannot parse command line options")
 		fmt.Fprintf(os.Stderr, "🤓use the --help flag for more help\n")
 		os.Exit(1)
 	}
 	rootPath := path.Join(".", "tools", "run.d")
-	if flags.Help || len(parser.Args()) <= 0 {
-		parser.PrintUsage(os.Stdout)
-		showWorkflows(rootPath)
-		os.Exit(0)
-	}
 	if len(parser.Args()) > 1 {
-		logError(errors.New("expected zero or one positional arguments"),
+		logError(errors.New("expected either zero or one positional arguments"),
 			"cannot parse command line options")
 		fmt.Fprintf(os.Stderr, "🤓use the --help flag for more help\n")
 		os.Exit(1)
+	}
+	if len(parser.Args()) <= 0 || parser.Args()[0] == "help" {
+		parser.PrintUsage(os.Stdout)
+		showWorkflows(rootPath)
+		os.Exit(0)
 	}
 	workflowName := parser.Args()[0]
 	runWorkflow(&flags, rootPath, workflowName)
