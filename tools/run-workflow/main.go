@@ -47,13 +47,16 @@ type action struct {
 	Env map[string]string `yaml:"env"`
 
 	// Interactive indicates whether the action is interactive.
-	Interactive bool
+	Interactive bool `yaml:"interactive"`
 }
 
 // flags contains command line flags.
 type flags struct {
 	// DryRun is the -n, --dry-run flag.
 	DryRun bool `doc:"just print which actions will be executed" short:"n"`
+
+	// Environ is th -E, --environ flag.
+	Environ []string `doc:"override workflow environment variables" short:"E"`
 
 	// Help is the -h, --help flag.
 	Help bool `doc:"print this help message" short:"h"`
@@ -113,7 +116,8 @@ func runSpecificAction(flags *flags, workflowName string, idx int, action *actio
 		}()
 	}
 	// The environment variables order is: (1) current environ, (2) user
-	// variables, and (2) finally workdir directory. The last variable to
+	// variables in the yaml, (3) user variables from -E flags, and (4)
+	// finally the workdir directory. The last variable to
 	// be set into the environment takes precedence over other previous
 	// variables with the same name set into the environment.
 	cmd.Env = os.Environ() // 1
@@ -121,7 +125,9 @@ func runSpecificAction(flags *flags, workflowName string, idx int, action *actio
 		variable := fmt.Sprintf("%s=%s", key, value)
 		cmd.Env = append(cmd.Env, variable) // 2
 	}
-	cmd.Env = append(cmd.Env, fmt.Sprintf("workdir=%s", flags.Workdir)) // 3
+	cmd.Env = append(cmd.Env, flags.Environ...) // 3
+	cmd.Env = append(
+		cmd.Env, fmt.Sprintf("workdir=%s", flags.Workdir)) // 4
 	fmt.Fprintf(os.Stderr, "")
 	if flags.DryRun {
 		return
