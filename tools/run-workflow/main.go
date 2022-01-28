@@ -43,6 +43,10 @@ type action struct {
 	// files like ./tools/run.d/<workflow>/action.bash.
 	Action string `yaml:"action"`
 
+	// Command is a command to run inline. It is a fatal error
+	// to provide both Action and Command together.
+	Command string `yaml:"command"`
+
 	// Env contains environment variables for the action itself.
 	Env map[string]string `yaml:"env"`
 
@@ -93,12 +97,23 @@ func showWorkflows(rootPath string) {
 	exitOnError(err, "cannot show the list of workflows")
 }
 
+// errBothActionAndCommand occurs when both Action and Command are set.
+var errBothActionAndCommand = errors.New("both action and command are set")
+
 // runSpecificAction runs the given action with the given index in the
 // context of the given workflow name and command line flags.
 func runSpecificAction(flags *flags, workflowName string, idx int, action *action) {
-	fmt.Fprintf(os.Stderr, "📌start action #%d: %s\n", idx, action.Action)
+	fmt.Fprintf(os.Stderr, "📌start action #%d\n", idx)
 	runner := path.Join(".", "tools", "run-action", "run")
-	cmd := execabs.Command(runner, action.Action)
+	if action.Action != "" && action.Command != "" {
+		logError(errBothActionAndCommand, "cannot run this action")
+	}
+	var cmd *execabs.Cmd
+	if action.Action != "" {
+		cmd = execabs.Command(runner, action.Action)
+	} else {
+		cmd = execabs.Command("bash", "-c", action.Command)
+	}
 	if action.Interactive {
 		cmd.Stdin = os.Stdin
 		cmd.Stdout = os.Stdout
@@ -128,7 +143,7 @@ func runSpecificAction(flags *flags, workflowName string, idx int, action *actio
 	cmd.Env = append(cmd.Env, flags.Environ...) // 3
 	cmd.Env = append(
 		cmd.Env, fmt.Sprintf("workdir=%s", flags.Workdir)) // 4
-	fmt.Fprintf(os.Stderr, "")
+	fmt.Fprintf(os.Stderr, "🤓executing: %s", cmd)
 	if flags.DryRun {
 		return
 	}

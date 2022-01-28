@@ -3,4 +3,9 @@ description: |
   of the CLI configured inside probe-desktop.
 
 actions:
-  - action: run-desktop-with-stable-cli
+  - interactive: true
+    command: |
+      cd repo/probe-desktop && \
+      yarn install && \
+      yarn download:probe-cli && \
+      yarn dev

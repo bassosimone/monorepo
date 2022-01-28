@@ -1,0 +1,9 @@
+description: |
+  Opens the ooni/probe-ios Xcode project.
+
+actions:
+  - interactive: true
+    command: |
+      cd ./repo/probe-ios && \
+      pod install && \
+      open ooniprobe.xcworkspace

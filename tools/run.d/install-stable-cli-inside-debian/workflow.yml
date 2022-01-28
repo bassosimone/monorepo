@@ -4,5 +4,9 @@ description: |
   just been installed.
 
 actions:
-  - action: install-stable-cli-inside-debian
-    interactive: true
+  - interactive: true
+    command: |
+      docker run --platform=linux/amd64 -it -v$(pwd):/ooni \
+        -w/ooni debian:stable \
+        ./tools/run.d/install-stable-cli-inside-debian/docker-main \
+        amd64 /bin/bash
