@@ -1,7 +1,7 @@
 description: |
   Opens the ooni/probe-ios Xcode project.
 
-actions:
+pipeline:
   - interactive: true
     command: |
       cd ./repo/probe-ios && \

@@ -2,7 +2,7 @@ description: |
   Builds an experimentalFullRelease of ooni/probe-android
   using an oonimkall.aar built from the current tree.
 
-actions:
+pipeline:
   - action: generate-android-keystore
   - action: setup-android
   - action: setup-go

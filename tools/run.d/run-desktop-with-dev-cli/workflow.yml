@@ -1,5 +1,5 @@
 description: |
   Runs a development version of probe-desktop with a development CLI.
 
-actions:
+pipeline:
   - action: run-desktop-with-dev-cli

@@ -1,7 +1,7 @@
 description: |
   Builds a devFullRelease of ooni/probe-android.
 
-actions:
+pipeline:
   - action: setup-android
   - action: generate-android-keystore
   - action: build-android-dev-full-release

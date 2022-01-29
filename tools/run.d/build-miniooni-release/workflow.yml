@@ -1,5 +1,5 @@
 description: |
   Builds a release of miniooni.
 
-actions:
+pipeline:
   - action: build-miniooni-release

@@ -3,7 +3,7 @@ description: |
   ooni/probe-cli configured in our debian repository has
   just been installed.
 
-actions:
+pipeline:
   - interactive: true
     command: |
       docker run --platform=linux/amd64 -it -v$(pwd):/ooni \

@@ -33,12 +33,12 @@ type workflow struct {
 	// Description is the human readable description.
 	Description string `yaml:"description"`
 
-	// Actions contains the workflow actions.
-	Actions []action `yaml:"actions"`
+	// Pipeline contains the workflow's pipeline.
+	Pipeline []stage `yaml:"pipeline"`
 }
 
-// action describes an action.
-type action struct {
+// stage describes a pipeline stage.
+type stage struct {
 	// Action is the name of the action to run. Actions are
 	// files like ./tools/run.d/<workflow>/action.bash.
 	Action string `yaml:"action"`
@@ -96,21 +96,21 @@ func showWorkflows(rootPath string) {
 // errBothActionAndCommand occurs when both Action and Command are set.
 var errBothActionAndCommand = errors.New("both action and command are set")
 
-// runSpecificAction runs the given action with the given index in the
+// runSpecificStage runs the given action with the given index in the
 // context of the given workflow name and command line flags.
-func runSpecificAction(flags *flags, workflowName string, idx int, action *action) {
-	fmt.Fprintf(os.Stderr, "📌start action #%d\n", idx)
+func runSpecificStage(flags *flags, workflowName string, idx int, stg *stage) {
+	fmt.Fprintf(os.Stderr, "📌start stage #%d\n", idx)
 	runner := path.Join(".", "tools", "run-action", "run")
-	if action.Action != "" && action.Command != "" {
-		logError(errBothActionAndCommand, "cannot run this action")
+	if stg.Action != "" && stg.Command != "" {
+		logError(errBothActionAndCommand, "cannot run this stage")
 	}
 	var cmd *execabs.Cmd
-	if action.Action != "" {
-		cmd = execabs.Command(runner, action.Action)
+	if stg.Action != "" {
+		cmd = execabs.Command(runner, stg.Action)
 	} else {
-		cmd = execabs.Command("bash", "-c", action.Command)
+		cmd = execabs.Command("bash", "-c", stg.Command)
 	}
-	if action.Interactive {
+	if stg.Interactive {
 		cmd.Stdin = os.Stdin
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
@@ -132,7 +132,7 @@ func runSpecificAction(flags *flags, workflowName string, idx int, action *actio
 	// be set into the environment takes precedence over other previous
 	// variables with the same name set into the environment.
 	cmd.Env = os.Environ() // 1
-	for key, value := range action.Env {
+	for key, value := range stg.Env {
 		variable := fmt.Sprintf("%s=%s", key, value)
 		cmd.Env = append(cmd.Env, variable) // 2
 	}
@@ -170,11 +170,11 @@ func runWorkflow(flags *flags, rootPath, workflowName string) {
 		exitOnError(err, "cannot create workdir directory")
 		flags.Workdir = workdir
 	}
-	for idx, action := range workflow.Actions {
+	for idx, action := range workflow.Pipeline {
 		if idx < flags.Skip {
 			continue // user wants to skip to a subsequent action
 		}
-		runSpecificAction(flags, workflowName, idx, &action)
+		runSpecificStage(flags, workflowName, idx, &action)
 	}
 }
 

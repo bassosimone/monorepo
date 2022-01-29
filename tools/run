@@ -1,4 +1,75 @@
 #!/bin/bash
-# Runs a specific workflow
+
+#doc:
+#doc: # ./tools/run
+#doc:
+#doc: This executable script runs a specific workflow. It is
+#doc: implemented by the ./tools/run-workflow Go program.
+#doc:
+#doc: We search for workflows in `./tools/run.d`. A workflow is
+#doc: a `workflow.yml` file in a directory `<dir>` inside the
+#doc: `./tools/run.d` directory. For example, the `hello-world`
+#doc: workflow is `./tools/run.d/hello-world/workflow.yml`.
+#doc:
+#doc: From the command line, you specify the name of the workflow
+#doc: directory, e.g., `./tools/run hello-world`.
+#doc:
+#doc: A workflow describes a pipeline of actions or commands to
+#doc: run in sequence. A command is an ordinary shell command while
+#doc: an action is a shell script which is assigned a name (more
+#doc: about actions soon). A workflow should also contain a
+#doc: human readable description of what it does.
+#doc:
+#doc: This is an example workflow:
+#doc:
+#doc: ```yaml
+#doc: description: This is a workflow.
+#doc:
+#doc: pipeline:
+#doc:   - action: hello-world
+#doc:   - command: ls -lha
+#doc: ```
+#doc:
+#doc: This workflow executes the `hello-world` action. If this
+#doc: operation succeeds, it executes `ls -lha`.
+#doc:
+#doc: An action is a shell script named `action.bash` in a
+#doc: subdirectory of `./tools/run.d`. For example, the
+#doc: `hello-world` action is `./tools/run.d/hello-world/action.bash`.
+#doc:
+#doc: The same subdirectory of `./tools/run.d` can contain both a
+#doc: workflow and an action if they have the same name.
+#doc:
+#doc: Each pipeline entry is called a stage. For a stage you can
+#doc: only specify one of `action` and `command`. Each stage could
+#doc: also set optional fields. They are:
+#doc:
+#doc: * `env`: a map from string to string that allows you to
+#doc: override specific environment variables used by the action;
+#doc:
+#doc: * `interactive`: a boolean flag defaulting to false that
+#doc: determines if the stage should run in batch mode (the
+#doc: default) or in interactive mode.
+#doc:
+#doc: If a stage runs in batch mode, its logs will be appended to
+#doc: a file and its stdin will be attached to /dev/null. On the
+#doc: contrary, an interactive stage emits logs to the current tty
+#doc: and attaches its stdin to the tty as well.
+#doc:
+#doc: Here's a workflow where we set all the stage options:
+#doc:
+#doc: ```yaml
+#doc: description: This is another workflow.
+#doc:
+#doc: pipeline:
+#doc:   - action: hello-world
+#doc:     env:
+#doc:       foobar: 42
+#doc:   - command: ls -lha
+#doc:     interactive: true
+#doc: ```
+#doc:
+#doc: Read on for more information on actions.
+
 set -euo pipefail
 go run ./tools/run-workflow "$@"

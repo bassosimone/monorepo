@@ -21,12 +21,13 @@ is already workking reasonably well for me. These are the git-related scripts:
 * `clean`: runs `git clean -dffx` in all repositories;
 * `commit <file>`: commits with the commit message in file in all changed repos;
 * `diff [--cached]`: diffs all the repos with respect to the base branch;
+* `info`: emits workflow programming documentation on the stdout;
 * `push`: pushes the current branch to all repos;
 * `reset`: runs `git reset --hard HEAD` and checkouts the default branch in all repos;
 * `status`: shows the status of rach repo;
 * `sync`: must be run from the base branch and pulls from upstream.
 
-The base branch is forced to be `main` in each repository. The development workflow is:
+The base branch is forced to be `main` in each repository. The development workflow is roughly the following:
 
 1. you start from a clean tree;
 2. you `sync`;
@@ -44,17 +45,8 @@ without arguments, it prints its usage plus the names of the available workflows
 If you pass `./tools/run` the name of a workflow, it will run it.
 
 A workflow is a `workflow.yml` file in a subdirectory of `tools/run.d`. The name
-of the subdirectory is the name of the workflow.
+of the subdirectory is the name of the workflow. So, for example, the `hello-world`
+workflow is the `./tools/run.d/hello-world/workflow.yml` file.
 
-Each workflow step calls an action. An action is an (hopefully) reusable bash
-script named `action.bash` to also lives in subdirectories of `tools/run.d`.
-
-The same subdirectory could contain both a workflow and an action. This happens
-when the workflow invokes a namesake action.
-
-A directory without actions is a workflow that refers to differently named
-actions. A directory without a workflow only contains actions and cannot be
-called directly from `./tools/run`.
-
-See the `./tools/run.d/hello-world` directory for a very simple example
-of how to write a worklow and an action.
+To read more about developing workflows, you should consult the
+documentation emitted by the `./tools/info` command.

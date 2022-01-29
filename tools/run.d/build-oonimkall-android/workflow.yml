@@ -1,7 +1,7 @@
 description: |
   Builds an oonimkall.aar from the current tree.
 
-actions:
+pipeline:
   - action: setup-android
   - action: setup-go
   - action: setup-oonigo

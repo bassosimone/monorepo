@@ -1,0 +1,15 @@
+#!/bin/bash
+set -euo pipefail
+
+source ./config/lib.bash
+
+document() {
+    echo ""
+	cat $1 | grep '^#doc:' | sed -e 's/^#doc: //g' -e 's/^#doc://g'
+}
+
+document ./tools/run
+document ./tools/run-action/run
+document ./tools/libcore.bash
+document ./config/lib.bash
+document ./config/$(platform).bash
