@@ -10,6 +10,16 @@ or ooni/probe-desktop tree. Being able to do that allows us to co-develop for
 these products without passing through trial-and-error commit, push, pull request,
 publish artifacts, download and integrate processes.
 
+## Local setup
+
+If you're not a OONI developer, you need to do just once:
+
+```bash
+cp config/local.bash.example config/local.bash
+```
+
+to apply local configuration that disables private repositories.
+
 ## Design
 
 The `tools` directory contains the top-level tools that one should be running. I
