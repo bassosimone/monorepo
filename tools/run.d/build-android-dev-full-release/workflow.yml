@@ -1,5 +1,4 @@
-description: |
-  Builds a devFullRelease of ooni/probe-android.
+description: Builds a devFullRelease of ooni/probe-android.
 
 pipeline:
   - action: setup-android

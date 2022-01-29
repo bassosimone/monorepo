@@ -1,5 +1,5 @@
-description: |
-  Shows how to create a workflow.
+description: Shows how to create a workflow.
 
 pipeline:
   - action: hello-world
+  - command: ls -lha $workdir

@@ -1,5 +1,5 @@
-description: |
-  Builds a release of miniooni.
+description: Builds a miniooni release.
 
 pipeline:
+  - action: setup-go
   - action: build-miniooni-release

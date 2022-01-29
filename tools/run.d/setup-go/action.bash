@@ -7,13 +7,11 @@ action_main() {
 		run rm -rf $golang_sdk
 		run tar -C $sdk_base_dir -xf ${golang_tarball}
 		run mv $sdk_base_dir/go $golang_sdk
-		run mkdir -p $HOME/bin
-		run ln -fs $golang_sdk/bin/go $HOME/bin/go
 	}
-	require_commands go
-	local real_version=$(go version | awk '{print $3}')
+	require_commands $golang_go
+	local real_version=$($golang_go version | awk '{print $3}')
 	if [[ "go${golang_version}" != "${real_version}" ]]; then
-		fatal "wrong golang version ${real_version} (expected ${golang_version})"
+		fatal "unexpected golang version ${real_version} (expected ${golang_version})"
 	fi
 	success "golang version is ${golang_version}"
 }

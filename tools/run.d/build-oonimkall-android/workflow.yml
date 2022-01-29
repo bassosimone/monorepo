@@ -1,5 +1,4 @@
-description: |
-  Builds an oonimkall.aar from the current tree.
+description: Builds an oonimkall.aar from the current tree.
 
 pipeline:
   - action: setup-android
