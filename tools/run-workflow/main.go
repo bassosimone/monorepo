@@ -65,6 +65,9 @@ type flags struct {
 	// Help is the -h, --help flag.
 	Help bool `doc:"print either general usage (with no arguments) or workflow-specific info (e.g., ./tools/run --help <workflow>)" short:"h"`
 
+	// Interactive is the -i, --interactive flag.
+	Interactive bool `doc:"run all stages in interactive mode" short:"i"`
+
 	// Skip is the -s, --skip <index> flag.
 	Skip int `doc:"skip directly to the action or command with the given index, ignoring the all previous ones (indexes start from zero)" short:"s"`
 
@@ -110,7 +113,7 @@ func runSpecificStage(flags *flags, workflowName string, idx int, stg *stage) {
 	} else {
 		cmd = execabs.Command("bash", "-c", stg.Command)
 	}
-	if stg.Interactive {
+	if stg.Interactive || flags.Interactive {
 		cmd.Stdin = os.Stdin
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
@@ -139,7 +142,7 @@ func runSpecificStage(flags *flags, workflowName string, idx int, stg *stage) {
 	cmd.Env = append(cmd.Env, flags.Environ...) // 3
 	cmd.Env = append(
 		cmd.Env, fmt.Sprintf("workdir=%s", flags.Workdir)) // 4
-	fmt.Fprintf(os.Stderr, "🤓executing: %s", cmd)
+	fmt.Fprintf(os.Stderr, "🤓executing: %s\n", cmd)
 	if flags.DryRun {
 		return
 	}
