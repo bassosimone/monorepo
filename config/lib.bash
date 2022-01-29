@@ -131,6 +131,19 @@ oonigo_path=$oonigo_sdk/bin
 oonigo_go=$oonigo_path/go
 
 #doc:
+#doc: ## group: ooni_psiphon
+#doc:
+#doc: This group contains settings related to OONI's
+#doc: integration with the Psiphon tool.
+
+#doc:
+#doc: ### ooni_psiphon_config (string)
+#doc:
+#doc: This variable contains the string we should pass to
+#doc: go -tags to enable tight Psiphon integration.
+ooni_psiphon_config=ooni_psiphon_config
+
+#doc:
 #doc: ## group: android_efr
 #doc:
 #doc: This group contains Android EFR (= Experimental Full

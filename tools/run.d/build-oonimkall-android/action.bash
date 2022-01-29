@@ -14,7 +14,7 @@ action_main() {
 	run which gomobile
 	run which go
 	run $gomobile bind -x -target android -o oonimkall.aar \
-		-tags ooni_psiphon_config -ldflags "-s -w" ./pkg/oonimkall
+		-tags=$ooni_psiphon_config -ldflags "-s -w" ./pkg/oonimkall
 	run mv oonimkall.aar $destdir
 	run mv oonimkall-sources.jar $destdir
 }
