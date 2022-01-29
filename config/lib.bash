@@ -75,7 +75,7 @@ golang_go=$golang_path/go
 #doc: ### android_sdk (string)
 #doc:
 #doc: Location where to download the Android SDK.
-android_sdk=$HOME/sdk/android
+android_sdk=$HOME/sdk/ooni-android
 
 #doc:
 #doc: ### android_cmdline_tools_version (string)
