@@ -1,5 +1,5 @@
-github.com/bassosimone/getoptx v0.0.0-20220126203536-9174e5e6be7b h1:vF5Jiu9QJSqY1uyGmwy5wXRdbu76GsVBgVZa4TSckbs=
-github.com/bassosimone/getoptx v0.0.0-20220126203536-9174e5e6be7b/go.mod h1:I4JFM4MeqosfVf8T7yzIKgpgBWpVe8HbHJGr8h8jQII=
+github.com/bassosimone/getoptx v0.0.0-20220130110708-c781f2d8ef4b h1:xEckZUcfcQE3cXW6jRnCifkE4nLsJmh/8iuH0htncKE=
+github.com/bassosimone/getoptx v0.0.0-20220130110708-c781f2d8ef4b/go.mod h1:I4JFM4MeqosfVf8T7yzIKgpgBWpVe8HbHJGr8h8jQII=
 github.com/iancoleman/strcase v0.2.0 h1:05I4QRnGpI0m37iZQRuskXh+w77mr6Z41lwQzuHLwW0=
 github.com/iancoleman/strcase v0.2.0/go.mod h1:iwCmte+B7n89clKwxIoIXy/HfoL7AsD47ZCWhYzw7ho=
 github.com/mitchellh/go-wordwrap v1.0.1 h1:TLuKupo69TCn6TQSyGxwI1EblZZEsQ0vMlAFQflz0v0=
