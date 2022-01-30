@@ -146,10 +146,11 @@ func runSpecificStage(flags *flags, workflowName string, idx int, stg *stage) {
 	if flags.DryRun {
 		return
 	}
-	if err := cmd.Run(); err != nil {
+	err := cmd.Run()
+	fmt.Fprintf(os.Stderr, "🤓restart from this stage using: ./tools/run -s%d -w%s %s\n",
+		idx, flags.Workdir, workflowName)
+	if err != nil {
 		logError(err, "executing action failed")
-		fmt.Fprintf(os.Stderr, "🤓restart with: ./tools/run -s%d -w%s %s\n",
-			idx, flags.Workdir, workflowName)
 		os.Exit(2)
 	}
 }
