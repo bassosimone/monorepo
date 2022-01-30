@@ -18,7 +18,7 @@ do_reset() {
 		run cd $dirname
 		run git reset --hard HEAD
 		run git checkout main
-		for branch in $(run git branch | run grep -v main); do
+		for branch in $(git branch | grep -v main); do
 			run git branch -D $branch
 		done
 	)
