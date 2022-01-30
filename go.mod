@@ -10,6 +10,7 @@ require (
 )
 
 require (
+	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510
 	github.com/iancoleman/strcase v0.2.0 // indirect
 	github.com/pborman/getopt/v2 v2.1.0 // indirect
 )

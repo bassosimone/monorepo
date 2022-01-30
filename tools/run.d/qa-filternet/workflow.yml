@@ -1,0 +1,41 @@
+description: Runs miniooni-dev's to test the filternet.
+
+pipeline:
+
+  - action: setup-go
+  - action: copy-psiphon-config
+  - action: build-miniooni-dev
+  - action: build-filternet
+
+  - interactive: true
+    command: |
+      sudo $workdir/filternet \
+        --uplink 'rate 1mbit' \
+        --downlink 'rate 3mbit' \
+        --user $USER \
+        --workdir $workdir \
+        ./miniooni-dev -n ndt
+
+  - interactive: true
+    command: |
+      sudo $workdir/filternet \
+        --downlink 'delay 100ms' \
+        --uplink 'delay 100ms' \
+        --workdir $workdir \
+        ping -c10 8.8.8.8
+
+  - interactive: true
+    command: |
+      sudo $workdir/filternet \
+        --firewall-rule '-d dns.google -p tcp --dport 443 -j DROP' \
+        --user $USER \
+        --workdir $workdir \
+        ./miniooni-dev -ni https://dns.google web_connectivity
+
+  - interactive: true
+    command: |
+      sudo $workdir/filternet \
+        --firewall-rule '-d dns.google -p udp --dport 443 -j DROP' \
+        --user $USER \
+        --workdir $workdir \
+        ./miniooni-dev -OHTTP3Enabled=true -ni https://dns.google urlgetter
