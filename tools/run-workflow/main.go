@@ -31,27 +31,27 @@ func exitOnError(err error, msg string) {
 // workflow describes a workflow.
 type workflow struct {
 	// Description is the human readable description.
-	Description string `yaml:"description"`
+	Description string
 
 	// Pipeline contains the workflow's pipeline.
-	Pipeline []stage `yaml:"pipeline"`
+	Pipeline []stage
 }
 
 // stage describes a pipeline stage.
 type stage struct {
 	// Action is the name of the action to run. Actions are
 	// files like ./tools/run.d/<workflow>/action.bash.
-	Action string `yaml:"action"`
+	Action string
 
 	// Command is a command to run inline. It is a fatal error
 	// to provide both Action and Command together.
-	Command string `yaml:"command"`
+	Command string
 
 	// Env contains environment variables for the action itself.
-	Env map[string]string `yaml:"env"`
+	Env map[string]string
 
 	// Interactive indicates whether the action is interactive.
-	Interactive bool `yaml:"interactive"`
+	Interactive bool
 }
 
 // flags contains command line flags.
