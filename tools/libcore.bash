@@ -21,28 +21,28 @@ fatal() {
 #doc: ## info (function)
 #doc:
 #doc: This function prints an informational message
-#doc: on the standard output.
+#doc: on the standard error.
 info() {
-	echo "🗒️ $@"
+	echo "🗒️ $@" 1>&2
 }
 
 #doc:
 #doc: ## success (function)
 #doc:
 #doc: This function prints a message on the standard
-#doc: output indicating that some check succeded.
+#doc: error indicating that some check succeded.
 success() {
-	echo "✔️ $@"
+	echo "✔️ $@" 1>&2
 }
 
 #doc:
 #doc: ## run (function)
 #doc:
 #doc: This function emits a message on the standard
-#doc: output indicating that it is about the execute
+#doc: error indicating that it is about the execute
 #doc: its arguments, then executes them.
 run() {
-	echo "🐚 $@"
+	echo "🐚 $@" 1>&2
 	"$@"
 }
 
