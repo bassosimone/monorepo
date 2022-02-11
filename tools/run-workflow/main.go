@@ -103,6 +103,8 @@ var errBothActionAndCommand = errors.New("both action and command are set")
 // context of the given workflow name and command line flags.
 func runSpecificStage(flags *flags, workflowName string, idx int, stg *stage) {
 	fmt.Fprintf(os.Stderr, "📌start stage #%d\n", idx)
+	fmt.Fprintf(os.Stderr, "🤓restart from this stage using: ./tools/run -s%d -w%s %s\n",
+		idx, flags.Workdir, workflowName)
 	runner := path.Join(".", "tools", "run-action", "run")
 	if stg.Action != "" && stg.Command != "" {
 		logError(errBothActionAndCommand, "cannot run this stage")
@@ -146,10 +148,7 @@ func runSpecificStage(flags *flags, workflowName string, idx int, stg *stage) {
 	if flags.DryRun {
 		return
 	}
-	err := cmd.Run()
-	fmt.Fprintf(os.Stderr, "🤓restart from this stage using: ./tools/run -s%d -w%s %s\n",
-		idx, flags.Workdir, workflowName)
-	if err != nil {
+	if err := cmd.Run(); err != nil {
 		logError(err, "executing action failed")
 		os.Exit(2)
 	}
