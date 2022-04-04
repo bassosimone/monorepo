@@ -9,7 +9,7 @@ action_main() {
 	run $gomobile init
 	run export ANDROID_HOME=$android_sdk
 	run export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/$android_ndk_version
-	run export PATH=$oonigo_path:$($golang_go env GOPATH)/bin:$PATH
+	run export PATH="$oonigo_path:$($golang_go env GOPATH)/bin:$PATH"
 	run which gobind
 	run which gomobile
 	run which go
