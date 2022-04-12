@@ -12,4 +12,4 @@ golang_tarball=go${golang_version}.linux-amd64.tar.gz
 #doc: ## golang_sha256 (string)
 #doc:
 #doc: This is the SHA256 of the golang SDK tarball.
-golang_sha256=231654bbf2dab3d86c1619ce799e77b03d96f9b50770297c8f4dff8836fc8ca2
+golang_sha256=980e65a863377e69fd9b67df9d8395fd8e93858e7a24c9f55803421e453f4f99

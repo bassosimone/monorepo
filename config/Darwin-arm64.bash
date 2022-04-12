@@ -12,4 +12,4 @@ golang_tarball=go${golang_version}.darwin-arm64.tar.gz
 #doc: ## golang_sha256 (string)
 #doc:
 #doc: This is the SHA256 of the golang SDK tarball.
-golang_sha256=dc54f3f4099e2be9e9c33bf926a7dc3ad64f34717142f7abcaff9ae44bc03d0c
+golang_sha256=2827fb5d62453b30f0644382e22ab9d287c7bca868c374a15145b29e272443b1
