@@ -1,0 +1,7 @@
+description: Installs the ooni/go toolchain
+
+pipeline:
+  - action: setup-go
+    interactive: true
+  - action: setup-oonigo
+    interactive: true
