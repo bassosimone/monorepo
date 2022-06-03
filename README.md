@@ -17,8 +17,8 @@ is installed is not the one required to build OONI, we will install a suitable
 version at the `$HOME/sdk/go${version}` directory. If you don't already have
 `go` installed, the `./tools/setup` script downloads the required `go` version
 using Unix tools such as `curl`, `sha256sum`, `tar`, etc and then symlinks
-the `$HOME/sdk/go${version}/bin/go` executable to `$HOME/bin/go`. If you have
-`$HOME/bin/go` in your path, this gives you a `go` installation.
+the `$HOME/sdk/go${version}/bin/go` executable to `$HOME/bin/go`. Of course,
+for this to work, you also need to add `$HOME/bin` to your `PATH`.
 
 Also, if you're not a OONI developer, you need to do just once:
 
