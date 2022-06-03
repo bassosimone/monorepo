@@ -24,8 +24,11 @@ repositories=(
 #doc:
 #doc: ## sdk_base_dir (string)
 #doc:
-#doc: This is the base directory where we install the SDK for
+#doc: This is the base directory where we install the Go SDK for
 #doc: developing ooniprobe. Defaults to `$HOME/sdk`.
+#doc:
+#doc: Note that we install the Android SDK at another directory
+#doc: where Android Studio is likely to have already installed it.
 sdk_base_dir=$HOME/sdk
 
 #doc:
@@ -74,12 +77,6 @@ golang_go=$golang_path/go
 #doc: Android SDK variables.
 
 #doc:
-#doc: ### android_sdk (string)
-#doc:
-#doc: Location where to download the Android SDK.
-android_sdk=$HOME/sdk/ooni-android
-
-#doc:
 #doc: ### android_cmdline_tools_version (string)
 #doc:
 #doc: Version of the Android command line tools to download.
@@ -89,13 +86,22 @@ android_cmdline_tools_version=latest
 #doc: ### android_build_tools_version (string)
 #doc:
 #doc: Version of the Android build tools to download.
+#doc:
+#doc: Check the output of `sdkmanager --list` to check whether
+#doc: we're using the latest available build-tools.
 android_build_tools_version=32.0.0
 
 #doc:
 #doc: ### android_ndk_version (string)
 #doc:
 #doc: Version of the Android NDK to download.
-android_ndk_version=23.1.7779620
+#doc:
+#doc: To find out which is the latest version, you should check
+#doc: this URL: https://developer.android.com/ndk/downloads.
+#doc:
+#doc: Note that gomobile typically assumes an LTS version.
+#doc:
+android_ndk_version=23.2.8568313
 
 #doc:
 #doc: ### android_platform_version (string)

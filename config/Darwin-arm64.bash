@@ -3,6 +3,13 @@
 #doc: This file contains darwin/arm64 specific settings.
 
 #doc:
+#doc: ### android_sdk (string)
+#doc:
+#doc: Location where to download the Android SDK. We use the directory
+#doc: where Android Studio usually installs the SDK to avoid duplication.
+android_sdk=$HOME/Library/Android/sdk
+
+#doc:
 #doc: ## golang_tarball (string)
 #doc:
 #doc: This is the name of the golang SDK tarball for this platform.

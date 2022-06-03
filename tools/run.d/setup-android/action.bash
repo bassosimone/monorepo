@@ -8,7 +8,6 @@ action_main() {
 		run curl -fsSLO $clitools_url
 		echo "$clitools_sha256  $clitools_file" >SHA256SUMS
 		run sha256sum -c SHA256SUMS
-		run mkdir -p $sdk_base_dir
 		run rm -rf $android_sdk
 		run unzip $clitools_file
 		run mkdir -p $android_sdk/cmdline-tools
