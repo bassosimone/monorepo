@@ -1,0 +1,10 @@
+#!/bin/bash
+set -euo pipefail
+source ./config/lib.bash
+source ./tools/libcore.bash
+info "Installing Go development environment from scratch"
+source ./tools/run.d/setup-go/action.bash
+action_main
+info "Linking the newly installed go to $HOME/bin"
+source ./tools/run.d/setup-go-and-link-to-home-bin/action.bash
+action_main

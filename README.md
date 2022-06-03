@@ -12,7 +12,15 @@ publish artifacts, download and integrate processes.
 
 ## Local setup
 
-If you're not a OONI developer, you need to do just once:
+You need `go` to be already installed on your system. If the version that
+is installed is not the one required to build OONI, we will install a suitable
+version at the `$HOME/sdk/go${version}` directory. If you don't already have
+`go` installed, the `./tools/setup` script downloads the required `go` version
+using Unix tools such as `curl`, `sha256sum`, `tar`, etc and then symlinks
+the `$HOME/sdk/go${version}/bin/go` executable to `$HOME/bin/go`. If you have
+`$HOME/bin/go` in your path, this gives you a `go` installation.
+
+Also, if you're not a OONI developer, you need to do just once:
 
 ```bash
 cp config/local.bash.example config/local.bash
