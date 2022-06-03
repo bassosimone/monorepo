@@ -46,7 +46,7 @@ platform() {
 #doc: ### golang_version (string)
 #doc:
 #doc: This is the version of Go to install.
-golang_version="1.17.9"
+golang_version="1.18.3"
 
 #doc:
 #doc: ### golang_sdk (string)
