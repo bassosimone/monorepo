@@ -18,4 +18,5 @@ action_main() {
 	echo "Yes" | run $sdkmanager --install "ndk;$android_ndk_version"
 	echo "Yes" | run $sdkmanager --install "build-tools;$android_build_tools_version"
 	echo "Yes" | run $sdkmanager --install "platforms;$android_platform_version"
+	run $sdkmanager --update
 }
