@@ -96,8 +96,13 @@ func showWorkflows(rootPath string) {
 	exitOnError(err, "cannot show the list of workflows")
 }
 
-// errBothActionAndCommand occurs when both Action and Command are set.
-var errBothActionAndCommand = errors.New("both action and command are set")
+var (
+	// errBothActionAndCommand occurs when both Action and Command are set.
+	errBothActionAndCommand = errors.New("both action and command are set")
+
+	// errNeitherActionNorCommand occurs when neither Action nor Command are set.
+	errNeitherActionNorCommand = errors.New("neither action nor command are set")
+)
 
 // runSpecificStage runs the given action with the given index in the
 // context of the given workflow name and command line flags.
@@ -108,6 +113,9 @@ func runSpecificStage(flags *flags, workflowName string, idx int, stg *stage) {
 	runner := path.Join(".", "tools", "run-action", "run")
 	if stg.Action != "" && stg.Command != "" {
 		logError(errBothActionAndCommand, "cannot run this stage")
+	}
+	if stg.Action == "" && stg.Command == "" {
+		logError(errNeitherActionNorCommand, "cannot run this stage")
 	}
 	var cmd *execabs.Cmd
 	if stg.Action != "" {
