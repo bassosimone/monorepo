@@ -43,7 +43,7 @@ is already workking reasonably well for me. These are the git-related scripts:
 * `push`: pushes the current branch to all repos;
 * `reset`: runs `git reset --hard HEAD` and checkouts the default branch in all repos;
 * `status`: shows the status of rach repo;
-* `sync`: must be run from the base branch and pulls from upstream.
+* `sync`: must be run from the base branch and pulls from upstream;
 * `vscode`: convenience script to open a directory using vscode.
 
 The base branch is forced to be `main` in each repository. The development workflow is roughly the following:
