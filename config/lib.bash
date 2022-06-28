@@ -6,8 +6,10 @@
 #doc:
 #doc: Contains the list of repositories to sync.
 repositories=(
+	git@github.com:neubot/dash
 	git@github.com:ooni/api
 	git@github.com:ooni/backend
+	git@github.com:ooni/data
 	git@github.com:ooni/minivpn
 	git@github.com:ooni/ooni.org
 	git@github.com:ooni/pipeline
