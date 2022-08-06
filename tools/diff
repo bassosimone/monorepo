@@ -19,7 +19,7 @@ source ./tools/libgit.bash
 do_show_diff() {
 	dirname=$(repo_to_dir $1)
 	(cd $dirname && git --no-pager diff --src-prefix=$dirname/a/ \
-		--dst-prefix=$dirname/b/ --color=always "$diff_args")
+		--dst-prefix=$dirname/b/ --color=always $diff_args)
 }
 
 for_each_repo do_show_diff
