@@ -1,5 +1,0 @@
-description: Installs the Go toolchain
-
-pipeline:
-  - action: setup-go
-    interactive: true

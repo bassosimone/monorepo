@@ -2,6 +2,5 @@ description: Builds an oonimkall.aar from the current tree.
 
 pipeline:
   - action: setup-android
-  - action: setup-go
   - action: copy-psiphon-config
   - action: build-oonimkall-android

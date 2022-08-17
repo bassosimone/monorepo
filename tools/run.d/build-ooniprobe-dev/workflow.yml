@@ -1,5 +1,4 @@
 description: Creates a development ooniprobe build.
 
 pipeline:
-  - action: setup-go
   - action: build-ooniprobe-dev

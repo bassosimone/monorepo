@@ -2,7 +2,6 @@ description: Runs miniooni-dev's to test the filternet.
 
 pipeline:
 
-  - action: setup-go
   - action: copy-psiphon-config
   - action: build-miniooni-dev
   - action: build-filternet

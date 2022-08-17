@@ -12,4 +12,3 @@ document ./tools/run
 document ./tools/run-action/run
 document ./tools/libcore.bash
 document ./config/lib.bash
-document ./config/$(platform).bash

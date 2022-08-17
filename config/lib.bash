@@ -26,83 +26,42 @@ repositories=(
 )
 
 #doc:
-#doc: ## sdk_base_dir (string)
+#doc: ## goos (function)
 #doc:
-#doc: This is the base directory where we install the Go SDK for
-#doc: developing ooniprobe. Defaults to `$HOME/sdk`.
-#doc:
-#doc: Note that we install the Android SDK at another directory
-#doc: where Android Studio is likely to have already installed it.
-sdk_base_dir=$HOME/sdk
-
-#doc:
-#doc: ## platform (function)
-#doc:
-#doc: The platform function echoes the system name followed by
-#doc: a dash followed by the machine name.
-platform() {
-	echo "$(uname -s)-$(uname -m)"
+#doc: Echoes the operating system name using Go conventions.
+goos() {
+	case $(uname -s) in
+	Linux)
+		echo "linux"
+		;;
+	Darwin)
+		echo "darwin"
+		;;
+	*)
+		echo "FATAL: unsupported system" 1>&2
+		exit 1
+		;;
+	esac
 }
 
 #doc:
-#doc: ## group: golang
+#doc: ## goarch (function)
 #doc:
-#doc: This group contains Go language SDK variables.
-
-#doc:
-#doc: ### golang_version (string)
-#doc:
-#doc: This is the version of Go to install.
-golang_version="1.18.3"
-
-#doc:
-#doc: ### golang_sdk (string)
-#doc:
-#doc: This is the directory in which we download the Go SDK,
-#doc: which defaults to $sdk_base_dir/go$golang_version.
-golang_sdk=$sdk_base_dir/go$golang_version
-
-#doc:
-#doc: ### golang_path (string)
-#doc:
-#doc: This is the directory to add to the PATH to execute
-#doc: the specific Go version we downloaded.
-golang_path=$golang_sdk/bin
-
-#doc:
-#doc: ### golang_go (string)
-#doc:
-#doc: Path of the go executable withing $golang_sdk.
-golang_go=$golang_path/go
-
-#doc:
-#doc: ## group: oonigo
-#doc:
-#doc: Variables related to the github.com/ooni/go fork.
-
-#doc:
-#doc: ### oonigo_version (string)
-#doc:
-#doc: Version of ooni/go to use.
-oonigo_version=oonigo$golang_version
-
-#doc:
-#doc: ### oonigo_sdk (string)
-#doc:
-#doc: Directory where we download the ooni/go SDK.
-oonigo_sdk=$sdk_base_dir/$oonigo_version
-
-#doc:
-#doc: ### oonigo_path (string)
-#doc:
-#doc: Directory of the ooni/go SDK to add to the PATH.
-oonigo_path=$oonigo_sdk/bin
-
-#doc:
-#doc: ### oonigo_go (string)
-#doc:
-#doc: Path to the go binary within the ooni/go SDK.
-oonigo_go=$oonigo_path/go
+#doc: Echoes the processor architecture using Go conventions.
+goarch() {
+	case $(uname -m) in
+	amd64 | x86_64)
+		echo "amd64"
+		;;
+	arm64)
+		echo "arm64"
+		;;
+	*)
+		echo "FATAL: unsupported arch" 1>&2
+		exit 1
+		;;
+	esac
+}
 
 #doc:
 #doc: ## group: ooni_psiphon
@@ -140,15 +99,6 @@ android_efr_keystore_keyalias=key0
 #doc:
 #doc: This is the generated key validity expressed in days.
 android_efr_keystore_validity=7
-
-#doc:
-#doc: ## group: platform-specific config
-#doc:
-#doc: For any supported platform name, there should be a
-#doc: file named `./config/<system>-<marchine>.bash` that
-#doc: will contain platform specific settings.
-
-source ./config/$(platform).bash
 
 #doc:
 #doc: ## group: local configuration

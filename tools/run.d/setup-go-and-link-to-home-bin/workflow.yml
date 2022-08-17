@@ -1,9 +1,0 @@
-description: |
-  Installs the Go toolchain and links the go binary of the go
-  toolchain to become $HOME/bin/go.
-
-pipeline:
-  - action: setup-go
-    interactive: true
-  - action: setup-go-and-link-to-home-bin
-    interactive: true

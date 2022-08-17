@@ -2,5 +2,4 @@ description: |
   Builds a development version of miniooni.
 
 pipeline:
-  - action: setup-go
   - action: build-miniooni-dev

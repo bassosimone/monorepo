@@ -46,7 +46,7 @@ action_main() {
 	(
 		run cd $cli
 		# TODO(bassosimone): add support for psiphon
-		run $golang_go build -ldflags "-s -w" ./cmd/ooniprobe
+		run go build -ldflags "-s -w" ./cmd/ooniprobe
 	)
 
 	run cp -p $cli/ooniprobe $desktop/build/probe-cli/$target

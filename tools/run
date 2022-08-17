@@ -71,5 +71,4 @@
 #doc:
 #doc: Read on for more information on actions.
 
-set -euo pipefail
-go run ./tools/run-workflow "$@"
+exec ./tools/setup go run ./tools/run-workflow "$@"
