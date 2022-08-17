@@ -1,6 +1,0 @@
-description: Builds an oonimkall.xcframework from the current tree.
-
-pipeline:
-  - action: setup-go
-  - action: copy-psiphon-config
-  - action: build-oonimkall-ios

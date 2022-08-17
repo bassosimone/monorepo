@@ -1,6 +1,0 @@
-description: Builds a miniooni release.
-
-pipeline:
-  - action: setup-go
-  - action: copy-psiphon-config
-  - action: build-miniooni-release

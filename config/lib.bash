@@ -76,44 +76,6 @@ golang_path=$golang_sdk/bin
 golang_go=$golang_path/go
 
 #doc:
-#doc: ## group: android
-#doc:
-#doc: Android SDK variables.
-
-#doc:
-#doc: ### android_cmdline_tools_version (string)
-#doc:
-#doc: Version of the Android command line tools to download.
-android_cmdline_tools_version=latest
-
-#doc:
-#doc: ### android_build_tools_version (string)
-#doc:
-#doc: Version of the Android build tools to download.
-#doc:
-#doc: Check the output of `sdkmanager --list` to check whether
-#doc: we're using the latest available build-tools.
-android_build_tools_version=32.0.0
-
-#doc:
-#doc: ### android_ndk_version (string)
-#doc:
-#doc: Version of the Android NDK to download.
-#doc:
-#doc: To find out which is the latest version, you should check
-#doc: this URL: https://developer.android.com/ndk/downloads.
-#doc:
-#doc: Note that gomobile typically assumes an LTS version.
-#doc:
-android_ndk_version=23.2.8568313
-
-#doc:
-#doc: ### android_platform_version (string)
-#doc:
-#doc: Version of the Android platform tools to use.
-android_platform_version=android-31
-
-#doc:
 #doc: ## group: oonigo
 #doc:
 #doc: Variables related to the github.com/ooni/go fork.

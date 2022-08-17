@@ -1,7 +1,7 @@
 action_main() {
 	local destdir="$(realpath ${workdir:-./output})"
+	run export ANDROID_HOME=$(cd ./repo/probe-cli && ./MOBILE/android/home)
 	run cd repo/probe-android
-	run export ANDROID_HOME=$android_sdk
 	run ./gradlew assembleStableFullRelease
 	local odir="./app/build/outputs/apk/stableFull/release"
 	local oname="app-stable-full-release-unsigned.apk"

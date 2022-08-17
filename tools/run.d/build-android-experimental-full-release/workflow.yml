@@ -6,7 +6,6 @@ pipeline:
   - action: generate-android-keystore
   - action: setup-android
   - action: setup-go
-  - action: setup-oonigo
   - action: copy-psiphon-config
   - action: build-oonimkall-android
   - action: build-android-experimental-full-release
