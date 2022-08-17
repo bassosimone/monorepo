@@ -4,6 +4,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"io"
 	"os"
 	"path"
 	"path/filepath"
@@ -65,9 +66,6 @@ type flags struct {
 	// Help is the -h, --help flag.
 	Help bool `doc:"print either general usage (with no arguments) or workflow-specific info (e.g., ./tools/run --help <workflow>)" short:"h"`
 
-	// Interactive is the -i, --interactive flag.
-	Interactive bool `doc:"run all stages in interactive mode" short:"i"`
-
 	// Skip is the -s, --skip <index> flag.
 	Skip int `doc:"skip directly to the action or command with the given index, ignoring the all previous ones (indexes start from zero)" short:"s"`
 
@@ -125,22 +123,19 @@ func runSpecificStage(flags *flags, workflowName string, idx int, stg *stage) {
 	} else {
 		cmd = execabs.Command("bash", "-c", stg.Command)
 	}
-	if stg.Interactive || flags.Interactive {
+	logfile := path.Join(flags.Workdir, "LOG.txt")
+	logfp, err := os.OpenFile(logfile, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
+	exitOnError(err, "cannot create log file")
+	fmt.Fprintf(os.Stderr, "🤓appending stdout and stderr to %s\n", logfile)
+	if stg.Interactive {
 		cmd.Stdin = os.Stdin
-		cmd.Stdout = os.Stdout
-		cmd.Stderr = os.Stderr
-	} else {
-		logfile := path.Join(flags.Workdir, "LOG.txt")
-		logfp, err := os.OpenFile(logfile, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
-		exitOnError(err, "cannot create log file")
-		fmt.Fprintf(os.Stderr, "🤓appending logs to %s\n", logfile)
-		cmd.Stdout = logfp
-		cmd.Stderr = logfp
-		defer func() {
-			err := logfp.Close()
-			exitOnError(err, "cannot close logfile")
-		}()
 	}
+	cmd.Stdout = io.MultiWriter(os.Stdout, logfp)
+	cmd.Stderr = io.MultiWriter(os.Stderr, logfp)
+	defer func() {
+		err := logfp.Close()
+		exitOnError(err, "cannot close logfile")
+	}()
 	// The environment variables order is: (1) current environ, (2) user
 	// variables in the yaml, (3) user variables from -E flags, and (4)
 	// finally the workdir directory. The last variable to

@@ -2,8 +2,7 @@ description: |
   Opens the ooni/probe-ios Xcode project.
 
 pipeline:
-  - interactive: true
-    command: |
+  - command: |
       cd ./repo/probe-ios && \
       pod install && \
       open ooniprobe.xcworkspace

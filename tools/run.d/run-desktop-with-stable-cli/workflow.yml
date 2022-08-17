@@ -3,8 +3,7 @@ description: |
   of the CLI configured inside probe-desktop.
 
 pipeline:
-  - interactive: true
-    command: |
+  - command: |
       cd repo/probe-desktop && \
       yarn install && \
       yarn download:probe-cli && \

@@ -2,4 +2,3 @@ description: Installs shfmt in GOPATH
 
 pipeline:
   - action: setup-shfmt
-    interactive: true

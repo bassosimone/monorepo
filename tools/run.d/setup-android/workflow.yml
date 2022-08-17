@@ -2,4 +2,3 @@ description: Installs the Android SDK
 
 pipeline:
   - action: setup-android
-    interactive: true
