@@ -110,7 +110,6 @@ func runSpecificStage(flags *flags, workflowName string, idx int, stg *stage) {
 	fmt.Fprintf(os.Stderr, "📌start stage #%d\n", idx)
 	fmt.Fprintf(os.Stderr, "🤓restart from this stage using: ./tools/run -s%d -w%s %s\n",
 		idx, flags.Workdir, workflowName)
-	runner := path.Join(".", "tools", "run-action", "run")
 	if stg.Action != "" && stg.Command != "" {
 		logError(errBothActionAndCommand, "cannot run this stage")
 		os.Exit(3)
@@ -121,6 +120,7 @@ func runSpecificStage(flags *flags, workflowName string, idx int, stg *stage) {
 	}
 	var cmd *execabs.Cmd
 	if stg.Action != "" {
+		runner := path.Join(".", "tools", "run-action", "run")
 		cmd = execabs.Command(runner, stg.Action)
 	} else {
 		cmd = execabs.Command("bash", "-c", stg.Command)
