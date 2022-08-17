@@ -15,4 +15,4 @@ do_clean() {
 }
 
 for_each_repo do_clean
-run rm -rf SHA256SUMS ./output/* go*.tar.gz
+run rm -rf ./output/*
