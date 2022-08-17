@@ -23,11 +23,11 @@ if [[ $# -ne 1 ]]; then
 	exit 0
 fi
 
-case "$(uname -s)" in
-"Linux")
+case "$(goos)" in
+"linux")
 	code --new-window "$(realpath $1)"
 	;;
-"Darwin")
+"darwin")
 	open "/Applications/Visual Studio Code.app" --args --new-window "$(realpath $1)"
 	;;
 *)
