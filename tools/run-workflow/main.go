@@ -113,9 +113,11 @@ func runSpecificStage(flags *flags, workflowName string, idx int, stg *stage) {
 	runner := path.Join(".", "tools", "run-action", "run")
 	if stg.Action != "" && stg.Command != "" {
 		logError(errBothActionAndCommand, "cannot run this stage")
+		os.Exit(3)
 	}
 	if stg.Action == "" && stg.Command == "" {
 		logError(errNeitherActionNorCommand, "cannot run this stage")
+		os.Exit(3)
 	}
 	var cmd *execabs.Cmd
 	if stg.Action != "" {
