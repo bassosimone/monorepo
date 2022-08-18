@@ -9,6 +9,8 @@ repositories=(
 	git@github.com:ooni/backend
 	git@github.com:ooni/data
 	git@github.com:ooni/minivpn
+	git@github.com:ooni/oocrypto
+	git@github.com:ooni/oohttp
 	git@github.com:ooni/ooni.org
 	git@github.com:ooni/pipeline
 	git@github.com:ooni/probe-android
