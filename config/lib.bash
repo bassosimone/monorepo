@@ -22,6 +22,7 @@ repositories=(
 	git@github.com:ooni/probe-ios
 	git@github.com:ooni/probe-private
 	git@github.com:ooni/probe-releases
+	git@github.com:ooni/psiphon
 	git@github.com:ooni/run
 	git@github.com:ooni/spec
 	git@github.com:ooni/translations
