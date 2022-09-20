@@ -4,6 +4,7 @@
 ooni_psiphon_config=""
 
 repositories=(
+	git@github.com:citizenlab/test-lists
 	git@github.com:neubot/dash
 	git@github.com:ooni/api
 	git@github.com:ooni/backend

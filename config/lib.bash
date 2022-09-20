@@ -6,6 +6,7 @@
 #doc:
 #doc: Contains the list of repositories to sync.
 repositories=(
+	git@github.com:citizenlab/test-lists
 	git@github.com:neubot/dash
 	git@github.com:ooni/api
 	git@github.com:ooni/backend
