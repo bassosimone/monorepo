@@ -14,19 +14,22 @@ def loadstate():
 def main():
     newstate = []
     state = loadstate()
-    index = 0
     for entry in state:
         if entry["__status__"] != "rejected":
             newstate.append(entry)
             continue
-        if len(entry['added']) < 1 or len(entry['removed']) < 1:
-            continue
-        index += 1
-        print("")
-        print(f"I would revert {entry['added'][0]} back to {entry['removed'][0]} because")
-        print(f"{entry['__comment__'].lower()}.")
-        print("")
+        if len(entry['added']) >= 1 and len(entry['removed']) >= 1:
+            print("")
+            print(f"I would revert {entry['added'][0]} back to {entry['removed'][0]} because")
+            print(f"{entry['__comment__'].lower()}.")
+            print("")
+        elif len(entry['removed']) >= 1:
+            print("")
+            print(f"I would reinstate {entry['removed'][0]} because")
+            print(f"{entry['__comment__'].lower()}.")
+            print("")
         if False:
+            continue
             print("Here are some stats:")
             print("")
             print(f"{json.dumps(entry['__statistics__'])}")
