@@ -11,8 +11,8 @@ __golang_sha256=$__golang_tarball.sha256
 __golang_sha256_url=$__golang_tarball_url.sha256
 
 if [[ ! -d $HOME/sdk/go$__golang_version ]]; then
-	run curl -fsSLO $__golang_tarball_url
-	run curl -fsSLO $__golang_sha256_url
+	run curl -f#SLO $__golang_tarball_url
+	run curl -f#SLO $__golang_sha256_url
 	echo "$(cat $__golang_sha256)  $__golang_tarball" >SHA256SUMS
 	run sha256sum -c SHA256SUMS
 	run rm -f SHA256SUMS $__golang_sha256
@@ -20,6 +20,11 @@ if [[ ! -d $HOME/sdk/go$__golang_version ]]; then
 	run tar -C $HOME/sdk -xf $__golang_tarball
 	run mv $HOME/sdk/go $HOME/sdk/go$__golang_version
 	run rm -f $__golang_tarball
+fi
+
+if [[ -d $HOME/bin/go ]]; then
+	run rm -f $HOME/bin/go
+	run ln -s $HOME/sdk/go$__golang_version/bin/go $HOME/bin/go
 fi
 
 export "PATH=$HOME/sdk/go$__golang_version/bin:$PATH"
