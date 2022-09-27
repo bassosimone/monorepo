@@ -64,3 +64,7 @@ workflow is the `./tools/run.d/hello-world/workflow.yml` file.
 
 To read more about developing workflows, you should consult the
 documentation emitted by the `./tools/info` command.
+
+## Experimental code
+
+Code inside the [x](x) directory is experimental.
