@@ -11,6 +11,7 @@ repositories=(
 	git@github.com:ooni/api
 	git@github.com:ooni/backend
 	git@github.com:ooni/data
+	git@github.com:ooni/historical-geoip
 	git@github.com:ooni/minivpn
 	git@github.com:ooni/oocrypto
 	git@github.com:ooni/oohttp
