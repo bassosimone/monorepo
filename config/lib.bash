@@ -7,6 +7,7 @@
 #doc: Contains the list of repositories to sync.
 repositories=(
 	git@github.com:bassosimone/bassosimone.github.io
+	git@github.com:bassosimone/wikicensorship-test-list
 	git@github.com:citizenlab/test-lists
 	git@github.com:neubot/dash
 	git@github.com:ooni/api
