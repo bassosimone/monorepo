@@ -60,7 +60,7 @@ goarch() {
 	amd64 | x86_64)
 		echo "amd64"
 		;;
-	arm64)
+	arm64 | aarch64)
 		echo "arm64"
 		;;
 	*)
