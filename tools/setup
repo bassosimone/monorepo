@@ -22,7 +22,7 @@ if [[ ! -d $HOME/sdk/go$__golang_version ]]; then
 	run rm -f $__golang_tarball
 fi
 
-if [[ -d $HOME/bin/go ]]; then
+if [[ -d $HOME/bin ]]; then
 	run rm -f $HOME/bin/go
 	run ln -s $HOME/sdk/go$__golang_version/bin/go $HOME/bin/go
 fi
