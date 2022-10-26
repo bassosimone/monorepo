@@ -15,8 +15,8 @@ do_show_status() {
 	local dirname=$(repo_to_dir $1)
 	local namelen=$(printf $dirname | wc -c)
 	printf "[$dirname]"
-	local spaces=$((24 - namelen))
-	while [[ $spaces > 0 ]]; do
+	local spaces=$((30 - namelen))
+	while [[ $spaces -gt 0 ]]; do
 		printf " "
 		spaces=$((spaces - 1))
 	done
