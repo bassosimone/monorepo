@@ -10,6 +10,11 @@ or ooni/probe-desktop tree. Being able to do that allows us to co-develop for
 these products without passing through trial-and-error commit, push, pull request,
 publish artifacts, download and integrate processes.
 
+✨✨✨ With [probe-cli#1022](https://github.com/ooni/probe-cli/pull/1022), we
+merged the most relevant part of this repository directly into probe-cli. As such,
+**this repository is now deprecated and will soon be archived**. From 2023-01-09
+onwards, you should use probe-cli directly rather than using this repository.
+
 ## Local setup
 
 The `./tools/run` script will automatically download the expected version of `go`
